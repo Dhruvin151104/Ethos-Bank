@@ -1,5 +1,5 @@
 import React from 'react'
-import loginButton from '../components/LoginButton'
+import LoginButton from '../components/LoginButton'
 
 function Home() {
   return (
@@ -10,8 +10,10 @@ function Home() {
             <p className=' text-white text-4xl  font-[Poppins] mb-2 font-medium'>Lorem ipsum dolor sit.</p>
             <p className=' text-white text-4xl font-medium font-[Poppins]'>Lorem ipsum dolor sit.</p>
             </div>
-            <p className=' text-white text-2xl font-[Poppins] font-light'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, rerum.</p>
-            <loginButton />
+            <div>
+            <p className=' text-white text-2xl font-[Poppins] font-light mb-5'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, rerum.</p>
+            <LoginButton length='4rem' />
+            </div>
         </div>
         <div className=' h-full w-2/4 bg-red-700'></div>
     </div>
