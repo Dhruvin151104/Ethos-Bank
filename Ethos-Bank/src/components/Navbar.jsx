@@ -30,7 +30,7 @@ function Navbar() {
         <div className="h-full flex justify-center items-center w-2/4">
           <ul className="flex w-max text-gray-500 gap-8 font-[Poppins] text-md font-semibold">
             <li>
-              <Link className={textProperties} to="/">
+              <Link className={textProperties} to="/calculator">
                 Payments
               </Link>
             </li>

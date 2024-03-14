@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  padding: 0;
+  margin: 0;
+  /* background-color: #F4F8FF; */
+}
 
-*{
-    padding: 0;
-    margin: 0;
-    /* background-color: #F4F8FF; */
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.remove-arrow {
+  -moz-appearance: textfield;
 }
