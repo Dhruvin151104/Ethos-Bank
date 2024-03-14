@@ -3,8 +3,8 @@ import React from "react";
 function button(val) {
   return (
     <>
-      <div className=" w-12 h-12 bg-slate-600 cursor-pointer flex justify-center items-center px-8 py-3 rounded-md font-[Poppins]">
-        <button type="button" onClick={(e)=>{
+      <div className=" w-16 h-12 bg-slate-600 cursor-pointer flex justify-center items-center rounded-md font-[Poppins]">
+        <button type="button" className=" h-full w-full" onClick={(e)=>{
           
         }}>{val}%</button>
       </div>

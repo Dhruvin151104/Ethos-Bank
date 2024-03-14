@@ -7,7 +7,7 @@ function Home() {
       <div className=" h-[70vh] w-full bg-slate-500 flex justify-center items-center">
         <div className=" h-3/4 w-2/4 bg-black flex justify-center items-start flex-col gap-10 pl-8 pr-10">
           <div>
-            <p className=" text-white text-4xl  font-[Poppins] mb-2 font-medium bg-inherit">
+            <p className=" text-white text-4xl  font-[Poppins] mb-2 font-medium">
               Lorem ipsum dolor sit.
             </p>
             <p className=" text-white text-4xl font-medium font-[Poppins]">
