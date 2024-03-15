@@ -17,3 +17,7 @@
 .remove-arrow {
   -moz-appearance: textfield;
 }
+
+body::-webkit-scrollbar{
+  display: none;
+}
