@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Gst from "../assets/gst_logo.svg";
+import Input from "../components/Input";
 
 function Calculator_GST() {
   const [index, setindex] = useState(0);
@@ -86,7 +87,7 @@ function Calculator_GST() {
                 Cost of Goods / Services(Without GST)
               </p>
               
-              <input
+              {/* <input
                 type="number"
                 onChange={(e) => {
                   settext(e.target.value);
@@ -94,7 +95,8 @@ function Calculator_GST() {
                 className="text-[#154166] shadow-md font-semibold h-14 w-11/12 text-2xl pl-5 font-[Poppins] rounded-md remove-arrow"
                 placeholder="₹ 25,000"
                 value={text}
-              />
+              /> */}
+              <Input type="number" settext={settext}/>
             </div>
           </div>
           <div className="w-1/2 h-full flex justify-center items-center pt-6">
