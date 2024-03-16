@@ -2,36 +2,16 @@ import React from "react";
 import { useState } from "react";
 import Gst from "../assets/gst_logo.svg";
 import Input from "../components/Input";
+import SelectionButtons from "../components/SelectionButtons";
 
 function Calculator_GST() {
   const [index, setindex] = useState(0);
-  const [text, settext] = useState("");
+  const [amount, setamount] = useState("");
   const gst = [3, 5, 12, 18, 28];
-  const slab = (val, key) => {
-    return (
-      <div
-        key={key}
-        className="w-24 h-16 text-2xl font-normal shadow-md cursor-pointer flex justify-center items-center font-[Poppins]"
-      >
-        <button
-          className={`w-full h-full bg-white rounded-md ${
-            index == key
-              ? "text-sky-600 font-semibold border-sky-600 border-[3px]"
-              : ""
-          }`}
-          onClick={() => {
-            setindex(key);
-          }}
-        >
-          {val}%
-        </button>
-      </div>
-    );
-  };
 
   const result = () => {
     const percent = index - 1 == -1 ? 0 : gst[index - 1];
-    const value = parseInt(text);
+    const value = parseInt(amount);
     const gst_value = value * (percent / 100);
     const total_value = value + gst_value;
     return (
@@ -80,28 +60,29 @@ function Calculator_GST() {
               Select GST Rates
             </p>
             <div className="w-full h-max flex justify-start items-center gap-7 mt-4">
-              {gst.map((value, ind) => slab(value, ind + 1))}
+              {gst.map((value, ind) => (
+                <SelectionButtons
+                  key={ind + 1}
+                  select={ind + 1 == index}
+                  val={value}
+                  setindex={setindex}
+                  index={ind + 1}
+                />
+              ))}
             </div>
-            <div className=" mt-24 flex flex-col gap-6">
-              <p className="text-2xl text-[#154166] font-semibold">
-                Cost of Goods / Services(Without GST)
-              </p>
-              
-              {/* <input
+            <div className=" mt-24 flex flex-col gap-4">
+              <Input
                 type="number"
-                onChange={(e) => {
-                  settext(e.target.value);
-                }}
-                className="text-[#154166] shadow-md font-semibold h-14 w-11/12 text-2xl pl-5 font-[Poppins] rounded-md remove-arrow"
+                settext={setamount}
+                text={amount}
                 placeholder="₹ 25,000"
-                value={text}
-              /> */}
-              <Input type="number" settext={settext}/>
+                heading="Cost of Goods / Services(Without GST)"
+              />
             </div>
           </div>
           <div className="w-1/2 h-full flex justify-center items-center pt-6">
-            {text=== "" && <img src={Gst} className=" h-[80vh]" alt="" />}
-            {text !== "" && result()}
+            {amount === "" && <img src={Gst} className=" h-[80vh]" alt="" />}
+            {amount !== "" && result()}
           </div>
         </div>
       </div>

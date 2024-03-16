@@ -1,9 +1,14 @@
 import React from 'react'
 import { useState } from "react";
-import Gst from "../assets/gst_logo.svg";
+import Input from '../components/Input';
+import Roi from "../assets/roi.png";
 
 function Calculator_ROI() {
     const [text, settext] = useState("");
+    const [Invested, setInvested] = useState("")
+    const [Returned, setReturned] = useState("")
+    const [Duration, setDuration] = useState("")
+
     const result = () => {
       const percent = index - 1 == -1 ? 0 : 0;
       const value = parseInt(text);
@@ -51,52 +56,12 @@ function Calculator_ROI() {
           </div>
           <div className=" w-full h-4/5 flex justify-center items-center">
             <div className="w-1/2 h-full  flex justify-center flex-col px-24">
-              <div className=" mt-15 flex flex-col gap-3">
-                <p className="text-2xl text-[#154166] font-semibold">
-                  Total Amount Invested
-                </p>
-                <input
-                  type="number"
-                  onChange={(e) => {
-                    settext(e.target.value);
-                  }}
-                  className="text-[#154166] shadow-md font-semibold h-14 w-11/12 text-2xl pl-5 font-[Poppins] rounded-md remove-arrow"
-                  placeholder="₹ 10,000"
-                  value={text}
-                />
-              </div>
-              <div className=" mt-10 flex flex-col gap-3">
-                <p className="text-2xl text-[#154166] font-semibold">
-                  Total Amount Returned
-                </p>
-                
-                <input
-                  type="number"
-                  onChange={(e) => {
-                    settext(e.target.value);
-                  }}
-                  className="text-[#154166] shadow-md font-semibold h-14 w-11/12 text-2xl pl-5 font-[Poppins] rounded-md remove-arrow"
-                  placeholder="₹ 15,000"
-                  value={text}
-                />
-              </div>
-              <div className=" mt-10 flex flex-col gap-3">
-                <p className="text-2xl text-[#154166] font-semibold">
-                  Duration of Investment
-                </p>
-                <input
-                  type="number"
-                  onChange={(e) => {
-                    settext(e.target.value);
-                  }}
-                  className="text-[#154166] shadow-md font-semibold h-14 w-11/12 text-2xl pl-5 font-[Poppins] rounded-md remove-arrow"
-                  placeholder="2 years"
-                  value={text}
-                />
-              </div>
+            <Input type="number" settext={setInvested} text={Invested} placeholder="₹ 10,000" heading="Total Amount Invested"/>
+                <Input type="number" settext={setReturned} text={Returned} placeholder="₹ 15,000" heading="Total Amount Returned"/>
+                <Input type="number" settext={setDuration} text={Duration} placeholder="2 years" heading="Duration of Investment"/>
             </div>
             <div className="w-1/2 h-full flex justify-center items-center pt-6">
-              {text === "" && <img src={Gst} className=" h-[80vh]" alt="" />}
+              {text === "" && <img src={Roi} className=" h-[80vh]" alt="" />}
               {text !== "" && result()}
             </div>
           </div>
