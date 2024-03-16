@@ -16,14 +16,8 @@ function Navbar() {
             <p
               className={`text-3xl font-[Rubik] text-[#154166] font-semibold inline`}
             >
-              Ethos{" "}
+              Ethos Bank
             </p>
-            <p
-              className={`text-3xl font-[Rubik] text-[#154166] font-semibold inline`}
-            >
-              Bank
-            </p>
-            {/* <p className="text-xs font-serif text-sky-500 font-semibold">Ethical Banking</p> */}
           </div>
         </div>
 

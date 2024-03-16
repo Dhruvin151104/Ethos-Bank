@@ -70,7 +70,7 @@ function Calculator_GST() {
                 />
               ))}
             </div>
-            <div className=" mt-24 flex flex-col gap-4">
+            <div className=" mt-24">
               <Input
                 type="number"
                 settext={setamount}

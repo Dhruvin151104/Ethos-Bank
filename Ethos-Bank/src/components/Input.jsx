@@ -2,7 +2,7 @@ import React from "react";
 
 function Input(props) {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <p className="text-2xl text-[#154166] font-semibold">
         {props.heading}
       </p>
@@ -15,7 +15,7 @@ function Input(props) {
         placeholder={props.placeholder}
         value={props.text}
       />
-    </>
+    </div>
   );
 }
 
