@@ -5,8 +5,8 @@ import Input from "../components/Input";
 import SelectionButtons from "../components/SelectionButtons";
 
 function Calculator_GST() {
-  const [index, setindex] = useState(0);
   const [amount, setamount] = useState("");
+  const [index, setindex] = useState(0);
   const gst = [3, 5, 12, 18, 28];
 
   const result = () => {
