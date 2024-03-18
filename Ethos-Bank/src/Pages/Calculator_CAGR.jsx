@@ -15,7 +15,7 @@ function Calculator_CAGR() {
 
     return (
       <div className=" h-4/5 w-1/2 bg-white rounded-2xl shadow-md">
-        <div className=" h-1/5 w-full bg-sky-600 rounded-t-2xl flex justify-center items-center text-4xl font-semibold font-[Poppins] text-white">
+        <div className=" h-1/5 w-full bg-sky-600 rounded-t-2xl flex justify-center items-center text-4xl font-semibold  text-white">
           CAGR
         </div>
         <div className="flex justify-start items-center flex-col gap-6 pt-9">
@@ -47,13 +47,13 @@ function Calculator_CAGR() {
   };
 
   return (
-    <div className="bg-[#F4F8FF]">
-      <div className=" bg-inherit w-full h-[90vh] gap-4 font-[Poppins] pt-5">
+    <div className="bg-main-theme font-[Poppins]">
+      <div className=" bg-inherit w-full h-[90vh] gap-4  pt-5">
         <div className=" w-full h-1/5 px-24 flex flex-col gap-4 justify-center">
-          <p className="font-[Poppins] text-[2.5rem] font-semibold text-[#154166]">
+          <p className=" text-[2.5rem] font-semibold text-[#154166]">
             CAGR Calculator (Compound Annual Growth Rate)
           </p>
-          <p className="font-[Poppins] text-lg font-medium text-gray-500">
+          <p className=" text-lg font-medium text-gray-500">
             Accurately Measure Compounded Growth Using Razorpay CAGR Calculator
           </p>
         </div>

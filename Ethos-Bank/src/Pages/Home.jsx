@@ -1,30 +1,61 @@
 import React from "react";
 import LoginButton from "../components/LoginButton";
+import test1 from "../assets/test1.jpg";
+import test_svg from "../assets/test_svg.svg"
 
 function Home() {
+  const card = (props)=>{
+    return(
+      <div style={{width:props.width,height:props.height}} className="rounded-2xl shadow-xl bg-white flex flex-col justify-center items-center gap-4 hover:bg-slate-100 duration-200 ease-linear border-b-sky-500 border-b-4">
+        <div className=" h-[25%] w-full">
+          <img src={test_svg} alt="" className="h-full m-auto"/>
+        </div>
+        <div className=" h-2/5 flex items-center justify-center flex-col gap-3">
+          <p className="text-3xl font-medium">Heading</p>
+          <p className="text-md px-4 overflow-hidden text-center font-normal">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus, voluptates.</p>
+        </div>
+        <a href="" className="text-lg hover:text-sky-500 duration-200 ease-in-out font-semibold">Know More &rarr;</a>
+      </div>
+    )
+  }
+
   return (
-    <>
-      <div className=" h-[70vh] w-full bg-slate-500 flex justify-center items-center">
-        <div className=" h-3/4 w-2/4 bg-black flex justify-center items-start flex-col gap-10 pl-8 pr-10">
-          <div>
-            <p className=" text-white text-4xl  font-[Poppins] mb-2 font-medium">
-              Lorem ipsum dolor sit.
-            </p>
-            <p className=" text-white text-4xl font-medium font-[Poppins]">
-              Lorem ipsum dolor sit.
-            </p>
+    <div className="font-[Poppins] bg-main-theme">
+      <div className=" h-[90vh] w-full flex justify-center items-center relative">
+        <div className=" h-3/5 w-2/5 flex bg-transparent justify-center items-start flex-col gap-10 pl-8 absolute left-28">
+          <div className="text-white text-4xl font-medium">
+            <p className="mb-2">Lorem ipsum dolor sit.</p>
+            <p>Lorem ipsum dolor sit.</p>
           </div>
-          <div className=" bg-inherit">
-            <p className=" text-white text-2xl font-[Poppins] font-light mb-5">
+          <div>
+            <p className=" text-white text-2xl font-light mb-5">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Pariatur, rerum.
             </p>
             <LoginButton x="4rem" y="0.5rem" />
           </div>
         </div>
-        <div className=" h-full w-2/4 bg-red-700"></div>
+        <div
+          className=" h-[90%] w-[90%] bg-red-700"
+          style={{
+            backgroundImage: `url(${test1})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        ></div>
       </div>
-    </>
+
+      <div className="h-[60vh]  flex justify-center items-center mt-32">
+        <div className="h-[95%] w-full  flex flex-col justify-center items-center gap-5">
+          <p className="text-4xl font-semibold text-[#154166]">Services</p>
+          <div className="w-full h-full flex justify-around items-center">
+          {card({height:"93%",width:"26%",src:test_svg})}
+          {card({height:"93%",width:"26%",src:test_svg})}
+          {card({height:"93%",width:"26%",src:test_svg})}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor:{
+        'main-theme':"#F4F8FF"
+      },
+      backgroundImage:{
+        'test1':"url('./Ethos-Bank/src/assets/test1.jpg')"
+      }
+    },
   },
   plugins: [],
 }
