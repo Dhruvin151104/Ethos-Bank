@@ -46,25 +46,13 @@ function Home() {
         ></div>
       </div>
 
-      <div className="h-[60vh]  flex justify-center items-center mt-32">
-        <div className="h-[95%] w-full  flex flex-col justify-center items-center">
+      <div className="h-[70vh]  flex justify-center items-center mt-32">
+        <div className="h-[90%] w-full  flex flex-col justify-center items-center">
           <p className="text-4xl font-semibold text-[#154166]">Services</p>
           <div className="w-full h-full flex justify-around items-center flex-wrap">
           {card({height:"93%",width:"26%",src:test_svg,link:true,imgHeight:"25%",heading:"",description:""})}
           {card({height:"93%",width:"26%",src:test_svg,link:true,imgHeight:"25%",heading:"",description:""})}
           {card({height:"93%",width:"26%",src:test_svg,link:true,imgHeight:"25%",heading:"",description:""})}
-          </div>
-        </div>
-      </div>
-
-      <div className="h-[60vh]  flex justify-center items-center mt-40">
-        <div className="h-[95%] w-full  flex flex-col justify-center items-center gap-5">
-          <p className="text-4xl font-semibold text-[#154166]">Values</p>
-          <div className="w-full h-full flex justify-around items-center flex-wrap">
-          {card({height:"93%",width:"26%",src:test2,link:false,imgHeight:"60%",heading:"",description:""})}
-          {card({height:"93%",width:"26%",src:test2,link:false,imgHeight:"60%",heading:"",description:""})}
-          {card({height:"93%",width:"26%",src:test2,link:false,imgHeight:"60%",heading:"",description:""})}
-          
           </div>
         </div>
       </div>
