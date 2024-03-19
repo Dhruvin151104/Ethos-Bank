@@ -12,40 +12,42 @@ function Navbar() {
     <div className="pl-14 bg-main-theme pt-3">
       <div className="h-14 flex items-center w-full justify-between px-3 sticky top-0">
         <div className="w-[25%] h-full">
-          <Logo img={logoIMG} />
+          <Link to="/">
+            <Logo img={logoIMG} />
+          </Link>
         </div>
 
         <div className="h-full flex justify-center items-center w-2/4">
           <ul className="flex w-max text-gray-500 gap-8 font-[Poppins] text-md font-semibold">
             <li>
-              <Link className={textProperties} to="/calculator">
+              <Link className={textProperties} to="">
                 Payments
               </Link>
             </li>
             <li>
-              <a className={textProperties} href="">
+              <Link className={textProperties} to="/">
                 Loans
-              </a>
+              </Link>
             </li>
             <li>
-              <a className={textProperties} href="">
+              <Link className={textProperties} to="/calculator">
                 Calculators
-              </a>
+              </Link>
             </li>
             <li>
-              <a className={textProperties} href="">
+              <Link className={textProperties} to="/">
                 Offers
-              </a>
+              </Link>
             </li>
             <li>
-              <a className={textProperties} href="">
+              <Link className={textProperties} to="/contactus">
                 Support
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
         <div className="h-full flex items-center justify-center w-1/4">
-          <LoginButton x="1rem" y="0.3rem" />
+          <LoginButton x="1rem" y="0.3rem" name="Login" />
         </div>
       </div>
     </div>

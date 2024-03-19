@@ -33,7 +33,7 @@ function Home() {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Pariatur, rerum.
             </p>
-            <LoginButton x="4rem" y="0.5rem" />
+            <LoginButton x="4rem" y="0.5rem" name="Login" />
           </div>
         </div>
         <div
