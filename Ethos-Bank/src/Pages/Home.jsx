@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginButton from "../components/LoginButton";
 import test1 from "../assets/test1.jpg";
 import test2 from "../assets/test3.png";
 import test_svg from "../assets/test_svg.svg";
+import { Link } from "react-router-dom";
 
 function Home() {
   const element = (props) => {
@@ -44,7 +45,9 @@ function Home() {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Pariatur, rerum.
             </p>
-            <LoginButton x="4rem" y="0.5rem" name="Login" />
+            <Link to='/login'>
+              <LoginButton x="4rem" y="0.5rem" name="Login" />
+            </Link>
           </div>
         </div>
         <div

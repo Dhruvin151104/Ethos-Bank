@@ -13,15 +13,15 @@ function Footer() {
   const Services = ["Accounts", "Payments", "Loans", "Calculators"];
   const media = (props) => {
     return (
-      <div className=" h-8 w-8 cursor-pointer">
+      <div key={props.key} className=" h-8 w-8 cursor-pointer">
         <img src={props.img} className="h-full w-full object-fill"></img>
       </div>
     );
   };
-  const element = (e) => {
+  const element = (props) => {
     return (
-      <p className=" cursor-pointer hover:text-sky-600 ease-in-out duration-200">
-        &gt; {e}
+      <p key={props.key} className=" cursor-pointer hover:text-sky-600 ease-in-out duration-200">
+        &gt; {props.text}
       </p>
     );
   };
@@ -41,10 +41,10 @@ function Footer() {
             necessitatibus delectus!
           </p>
           <div className="flex gap-4">
-            {media({ img: fb })}
-            {media({ img: insta })}
-            {media({ img: twit })}
-            {media({ img: linkedin })}
+            {media({ img: fb,key:"1"})}
+            {media({ img: insta,key:"2" })}
+            {media({ img: twit,key:"3" })}
+            {media({ img: linkedin ,key:"4"})}
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@ function Footer() {
             </p>
           </div>
           <div className="flex flex-col justify-start items-start gap-1 font-normal text-lg h-[70%]">
-            {usefulLinks.map((e) => element(e))}
+            {usefulLinks.map((e,index) => element({text:e,key:index}))}
           </div>
         </div>
         <div className=" h-[90%] w-[25%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-10">
@@ -64,7 +64,7 @@ function Footer() {
             <p className=" text-2xl font-semibold text-[#154166]">Services</p>
           </div>
           <div className="flex flex-col justify-start items-start gap-1 font-normal text-lg h-[70%]">
-            {Services.map((e) => element(e))}
+            {Services.map((e,index) => element({text:e,key:index}))}
           </div>
         </div>
         <div className=" h-[90%] w-[35%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-10">
