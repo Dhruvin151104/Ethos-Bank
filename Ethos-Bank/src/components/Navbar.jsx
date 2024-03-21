@@ -47,7 +47,9 @@ function Navbar() {
           </ul>
         </div>
         <div className="h-full flex items-center justify-center w-1/4">
-          <LoginButton x="1rem" y="0.3rem" name="Login" />
+          <Link to='/login'>
+            <LoginButton x="1rem" y="0.3rem" name="Login" />
+          </Link>
         </div>
       </div>
     </div>
