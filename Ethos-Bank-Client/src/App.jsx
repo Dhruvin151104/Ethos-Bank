@@ -11,7 +11,7 @@ import Login from "./Pages/Login";
 function App() {
   return (
     <div className="bg-main-theme">
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -21,7 +21,7 @@ function App() {
         <Route path="/calculator/cagr" element={<Calculator_CAGR />} />
         <Route path="/support" element={<ContactUS />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
