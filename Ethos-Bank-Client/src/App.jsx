@@ -7,11 +7,15 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import ContactUS from "./Pages/ContactUS";
 import Login from "./Pages/Login";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation()
+  const isLoginPage = location.pathname !== '/login';
+
   return (
     <div className="bg-main-theme">
-      <Navbar />
+      {isLoginPage && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -21,7 +25,7 @@ function App() {
         <Route path="/calculator/cagr" element={<Calculator_CAGR />} />
         <Route path="/support" element={<ContactUS />} />
       </Routes>
-      <Footer />
+      {isLoginPage && <Footer />}
     </div>
   );
 }
