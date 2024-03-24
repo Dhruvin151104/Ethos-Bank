@@ -5,6 +5,7 @@ import fb from "../assets/facebook.svg";
 import insta from "../assets/instagram.svg";
 import twit from "../assets/twitter.svg";
 import linkedin from "../assets/linkedin.svg";
+import github from "../assets/github.svg";
 import { Link } from "react-router-dom";
 import globe from "../assets/earth.svg"
 
@@ -13,7 +14,7 @@ function Footer() {
   const Services = ["Accounts", "Payments", "Loans", "Calculators"];
   const media = (props) => {
     return (
-      <div key={props.key} className=" h-8 w-8 cursor-pointer">
+      <div key={props.key} className=" h-7 w-7 cursor-pointer">
         <img src={props.img} className="h-full w-full object-fill"></img>
       </div>
     );
@@ -45,6 +46,7 @@ function Footer() {
             {media({ img: insta,key:"2" })}
             {media({ img: twit,key:"3" })}
             {media({ img: linkedin ,key:"4"})}
+            {media({ img: github ,key:"5"})}
           </div>
         </div>
       </div>

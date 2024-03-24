@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 function App() {
   const location = useLocation()
   const isLoginPage = location.pathname !== '/login';
-
+  
   return (
     <div className="bg-main-theme">
       {isLoginPage && <Navbar />}
