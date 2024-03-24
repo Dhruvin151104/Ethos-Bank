@@ -3,7 +3,7 @@ import home from "../assets/home.png";
 import calc_svg from "../assets/calcSVG.svg";
 import payment_svg from "../assets/paymentSVG.svg";
 import loan_svg from "../assets/loanSVG.svg";
-import { Link } from "react-router-dom";
+import News from "../components/News";
 
 
 
@@ -17,7 +17,7 @@ function Home() {
         '--outline-color': props.color,
       }}
         className={
-          `rounded-xl flex justify-evenly items-center shadow-md bg-gray-50 hover:bg-[var(--bg-color)] duration-100 ease-linear hover:outline outline-2 hover:outline-[var(--outline-color)]`
+          `rounded-xl flex justify-evenly items-center shadow-md bg-gray-50 hover:bg-[var(--bg-color)] duration-200 ease-in-out hover:outline outline-2 hover:outline-[var(--outline-color)]`
         }
       >
         <div className="h-full w-[30%]">
@@ -119,6 +119,12 @@ function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* News Part */}
+      <div className="w-full h-[80vh] bg-white mt-20 px-20 flex flex-col justify-center items-center gap-10">
+        <p className="text-4xl font-semibold text-[#154166]">Hot News</p>
+        <News />
       </div>
     </div>
   );
