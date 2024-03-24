@@ -18,6 +18,6 @@
   -moz-appearance: textfield;
 }
 
-body::-webkit-scrollbar{
+*::-webkit-scrollbar{
   display: none;
 }

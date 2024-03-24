@@ -14,7 +14,7 @@ function Calculator_ROI() {
     const annualRoi = roi/Duration;
 
     return (
-      <div className=" h-4/5 w-1/2 bg-white rounded-2xl shadow-md">
+      <div className=" h-4/5 w-1/2 bg-white rounded-2xl shadow-md mb-10">
         <div className=" h-1/5 w-full bg-sky-600 rounded-t-2xl flex justify-center items-center text-2xl font-semibold  text-white">
           TOTAL INVESTMENT GAIN
         </div>
