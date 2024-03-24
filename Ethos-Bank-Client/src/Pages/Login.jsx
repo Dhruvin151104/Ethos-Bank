@@ -3,6 +3,8 @@ import test_svg from "../assets/test_svg.svg";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 function Login() {
   const navigate = useNavigate();
   const [index, setindex] = useState(1);
@@ -72,6 +74,13 @@ function Login() {
     }
     return true;
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('', email)
+    .then(result => {console.log(result);})
+    .catch(err => {console.log(err);}) 
+  }
 
   return (
     <div className="h-[100vh] w-[100vw] bg-main-theme font-[Poppins] justify-center items-center flex">
@@ -157,6 +166,7 @@ function Login() {
                     disabled={!validEmail()}
                     onClick={() => {
                       nextSlide();
+                      handleSubmit();
                       console.log(JSON.stringify({ email: email }));
                     }}
                   >
