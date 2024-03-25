@@ -1,69 +1,136 @@
-import React from 'react'
-import { useState,useEffect } from 'react'
+import React from "react"
+import { useState, useEffect } from "react"
+import test from "../assets/test1.jpg"
+import Spinner from "./Spinner"
 
 function News() {
-
-  const [news, setnews] = useState({})
-  const card = ()=>{
-    return(
-        <div className='h-full min-w-[33.333%]'>
-            <div className='h-full w-[80%] mx-auto bg-blue-600 rounded-3xl'>
-
-            </div>
+  const [news, setnews] = useState({
+    articles: [],
+    cardNumber: 1,
+    isLoading: true,
+    status: null,
+  })
+  const card = (props) => {
+    return (
+      <div
+        key={props.key}
+        className="h-full min-w-[33.333%] flex justify-center items-center"
+      >
+        <div className="h-[98%] w-[75%] mx-auto rounded-3xl overflow-hidden bg-sky-50 shadow-inner outline outline-[3px] outline-sky-500">
+          <div className="h-[45%] w-full">
+            <img
+              src={props.urlImg}
+              alt=""
+              className=" object-cover h-full w-full"
+            />
+          </div>
+          <div className="h-[45%] w-full py-2 px-5 overflow-hidden flex flex-col items-center gap-2">
+            <p className=" text-base font-medium">{props.title}</p>
+            <p className="text-sm font-light">{props.description}</p>
+          </div>
+          <div className="h-[15%] w-full px-5 text-md font-medium py-2">
+            <a
+              href={props.url}
+              target="_blank"
+              className=" hover:text-sky-600 duration-200 ease-linear"
+            >
+              Read More &rarr;
+            </a>
+          </div>
         </div>
+      </div>
     )
   }
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-          const response = await fetch(import.meta.env.VITE_NEWS_API);
-          if (response.ok) {
-            const data = await response.json();
-            console.log(data)
-            setnews({pages:data.totalResults})
-            
-          } else {
-            console.error('Failed to fetch data:', response.status);
-          }
-        } catch (error) {
-          console.error('Error fetching data:', error);
+      try {
+        const response = await fetch(import.meta.env.VITE_FAKE_NEWS_API)
+        if (response.ok) {
+          const data = await response.json()
+          setnews({
+            ...news,
+            articles: data.articles,
+            isLoading: false,
+            status: data.status,
+          })
+        } else {
+          setnews({ ...news, isLoading: false,status: "error" })
         }
-      };
-    
-    //   fetchData();
-  }, [])
-  
+      } catch (error) {
+        setnews({ ...news, isLoading: false,status: "error" }) 
+      }
+    }
 
-  const nextNews = ()=>{
-    const parent = document.getElementById('cardContainer')
-    parent.style.transform = `translateX(-33%)`;
+    fetchData()
+  }, [])
+
+  const nextNews = () => {
+    const parent = document.getElementById("cardContainer")
+    parent.style.transform = `translateX(-${33.333 * news.cardNumber}%)`
+    setnews({ ...news, cardNumber: news.cardNumber + 1 })
   }
 
-  const prevNews = ()=>{
-    const parent = document.getElementById('cardContainer')
-    parent.style.transform = `translateX(33%)`;
+  const prevNews = () => {
+    const parent = document.getElementById("cardContainer")
+    parent.style.transform = `translateX(-${33.333 * (news.cardNumber - 2)}%)`
+    setnews({ ...news, cardNumber: news.cardNumber - 1 })
   }
 
   return (
-    <div className="w-full h-[70%] bg-red-600 relative overflow-hidden">
-        <div className='w-full h-full bg-transparent flex justify-between text-5xl font-light text-black absolute z-10'>
-            <div className='h-full w-[2%] flex items-center justify-center'>
-                <button className='hover:text-blue-600' onClick={prevNews}>&lt;</button>
-            </div>
-            <div className='h-full w-[2%] flex items-center justify-center'>
-                <button className=' hover:text-blue-600' onClick={nextNews}>&gt;</button>
-            </div>
+    <div className="w-full h-[70%] relative overflow-hidden flex justify-center items-center">
+      {news.isLoading && <Spinner />}
+      {!news.isLoading && news.status === "error" && (
+        <p className="text-3xl font-semibold text-gray-400">
+          No News is Available For Now!
+        </p>
+      )}
+      {!news.isLoading && news.status === "ok" && (
+        <div className="w-full h-full bg-transparent flex justify-between text-5xl font-light text-black absolute">
+          <div className="h-full w-[2%] flex items-center justify-center relative z-10">
+            <button
+              className={`${
+                news.cardNumber === 1
+                  ? "text-slate-500 cursor-not-allowed"
+                  : "hover:text-blue-600 "
+              }`}
+              onClick={prevNews}
+              disabled={news.cardNumber === 1}
+            >
+              &lt;
+            </button>
+          </div>
+          <div className="h-full w-[2%] flex items-center justify-center relative z-10">
+            <button
+              className={`${
+                news.cardNumber >= news.articles.length - 2
+                  ? "text-slate-500 cursor-not-allowed"
+                  : "hover:text-blue-600 "
+              }`}
+              onClick={nextNews}
+              disabled={news.cardNumber >= news.articles.length - 2}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
-        <div id='cardContainer' className='w-full h-full flex items-center justify-between relative'>
-
-        {card()}
-        {card()}
-        {card()}
-        {card()}
-        {card()}
-        {card()}
+      )}
+      {!news.isLoading && news.status === "ok" && (
+        <div
+          id="cardContainer"
+          className="w-full h-full flex items-center justify-between relative duration-[400ms] ease-linear"
+        >
+          {news.articles.map((e, index) =>
+            card({
+              key: index,
+              title: e.title ? e.title : "",
+              description: e.description ? e.description : "",
+              urlImg: e.urlToImage ? e.urlToImage : test,
+              url: e.url ? e.url : "",
+            })
+          )}
         </div>
+      )}
     </div>
   )
 }
