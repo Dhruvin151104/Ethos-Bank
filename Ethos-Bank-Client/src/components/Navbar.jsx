@@ -18,7 +18,7 @@ function Navbar() {
         </div>
 
         <div className="h-full flex justify-center items-center w-2/4">
-          <ul className="flex w-max text-gray-500 gap-8 font-[Poppins] text-md font-semibold">
+          <ul className="flex w-max text-gray-500 gap-8 font-[Poppins] text-lg font-semibold">
             <li>
               <Link className={textProperties} to="">
                 Payments
@@ -35,11 +35,6 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link className={textProperties} to="/">
-                Offers
-              </Link>
-            </li>
-            <li>
               <Link className={textProperties} to="/contactus">
                 Support
               </Link>
@@ -48,7 +43,7 @@ function Navbar() {
         </div>
         <div className="h-full flex items-center justify-center w-1/4">
           <Link to='/login'>
-            <LoginButton x="1rem" y="0.3rem" name="Login" />
+            <LoginButton x="1.5rem" y="0.4rem" name="Login" />
           </Link>
         </div>
       </div>
