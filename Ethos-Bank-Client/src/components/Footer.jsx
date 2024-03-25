@@ -27,7 +27,7 @@ function Footer() {
     );
   };
   return (
-    <div className="  h-[50vh] flex justify-center items-center font-[Poppins] bg-slate-200 relative overflow-hidden">
+    <div className="  h-[50vh] flex justify-center items-center font-[Poppins] bg-slate-200 relative overflow-hidden mt-10">
       
       <div className=" h-4/5 w-2/5 flex justify-center items-start flex-col pl-14 gap-8">
         <div className="h-14  flex items-center">

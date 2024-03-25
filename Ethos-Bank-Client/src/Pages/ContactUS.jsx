@@ -22,7 +22,7 @@ function ContactUS() {
         )
     }
   return (
-    <div className=' font-[Poppins] h-[100vh] mb-10'>
+    <div className=' font-[Poppins] h-[100vh]'>
         <div className='h-[15%] flex items-center justify-center pt-5'>
         <p className='text-[#154166] text-4xl font-semibold text-center'>Contact Us</p>
         </div>
