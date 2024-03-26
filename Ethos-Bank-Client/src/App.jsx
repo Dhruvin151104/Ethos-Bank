@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
+import Calculator from "./Pages/Calculator";
 import Calculator_GST from "./Pages/Calculator_GST";
 import Calculator_ROI from "./Pages/Calculator_ROI";
 import Calculator_CAGR from "./Pages/Calculator_CAGR";
@@ -11,9 +12,9 @@ import Login from "./Pages/Login";
 import { useLocation } from "react-router-dom";
 
 function App() {
-  const location = useLocation()
-  const isLoginPage = location.pathname !== '/login';
-  
+  const location = useLocation();
+  const isLoginPage = location.pathname !== "/login";
+
   return (
     <div className="bg-main-theme">
       {isLoginPage && <Navbar />}
@@ -21,9 +22,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contactus" element={<ContactUS />} />
-        <Route path="/calculator/gst" element={<Calculator_GST />} />
-        <Route path="/calculator/roi" element={<Calculator_ROI />} />
-        <Route path="/calculator/cagr" element={<Calculator_CAGR />} />
+        <Route path="/calculator" element={<Calculator />}>
+          <Route path="/calculator/gst" element={<Calculator_GST />} />
+          <Route path="roi" element={<Calculator_ROI />} />
+          <Route path="cagr" element={<Calculator_CAGR />} />
+        </Route>
         <Route path="/support" element={<ContactUS />} />
         <Route path="/customer/:name" element={<Customer />} />
       </Routes>
