@@ -14,10 +14,10 @@ function Calculator() {
     return (
       <button
         key={props.key}
-        className={`h-[90%] w-[30%] bg-white shadow-md rounded-2xl duration-150 ease-linear cursor-pointer ${
-          index == props.key
-            ? "bg-sky-100 outline-2 outline-sky-300 outline"
-            : ""
+        className={`h-[90%] w-[30%] shadow-md rounded-2xl duration-150 ease-linear cursor-pointer ${
+          index === props.key
+            ? "bg-sky-100 outline-2 outline-sky-500 outline"
+            : "bg-white"
         }`}
         onClick={()=>{
             navigate(props.cal)
