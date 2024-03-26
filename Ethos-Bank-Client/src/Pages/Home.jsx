@@ -44,20 +44,19 @@ function Home() {
   return (
     <div className="font-[Poppins] bg-main-theme">
       <div className=" h-[90vh] w-full flex justify-center items-center relative px-20">
-        <div className=" h-3/5 w-[50%] flex bg-transparent justify-center items-start flex-col gap-10 pr-32">
+        <div className=" h-3/5 w-[45%] flex bg-transparent justify-center items-start flex-col gap-10">
           <div className="text-black text-4xl font-medium">
-            <p className="mb-2">Lorem ipsum dolor sit.</p>
-            <p>Lorem ipsum dolor sit.</p>
+            <p className="mb-2 "><span className=" font-semibold text-blue-600">Supercharge</span> your Banking</p>
+            <p>with <span className="">Ethos</span>.</p>
           </div>
           <div>
             <p className=" text-black text-2xl font-light mb-5">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Pariatur, rerum.
+              Our services got you covered.
             </p>
           </div>
         </div>
-        <div className=" h-[90%] w-[50%] flex justify-center items-center">
-          <img src={home} alt="" className="h-full" />
+        <div className=" h-[90%] w-[47vw] flex justify-center items-center">
+          <img src={home} alt="" className="h-full w-full" />
         </div>
       </div>
 

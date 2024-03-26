@@ -41,7 +41,7 @@ function Calculator_ROI() {
   };
 
   return (
-    <div className="bg-main-theme font-[Poppins]">
+    <div className="bg-main-theme font-[Poppins] w-full">
       <div className=" bg-inherit w-full h-[90vh] gap-4  pt-5">
         <div className=" w-full h-1/5 px-24 flex flex-col gap-4 justify-center">
           <p className=" text-[2.5rem] font-semibold text-[#154166]">
@@ -52,7 +52,7 @@ function Calculator_ROI() {
           </p>
         </div>
         <div className=" w-full h-4/5 flex justify-center items-center">
-          <div className="w-1/2 h-full  flex justify-center flex-col px-24 gap-11">
+          <div className="w-1/2 h-full flex justify-center flex-col  px-24 gap-11">
             <Input
               type="number"
               settext={setInvested}
