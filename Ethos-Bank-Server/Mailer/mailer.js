@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 
 config({ path: `${__dirname}/../.env` });
 
-function Mailer(to,otp) {
+function Mailer(to, otp) {
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
