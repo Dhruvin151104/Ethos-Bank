@@ -1,4 +1,5 @@
 import React from "react";
+import loginIMG from "../assets/sign-in.svg";
 import test_svg from "../assets/test_svg.svg";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -75,11 +76,23 @@ function Login() {
     return true;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post('', email)
-    .then(result => {console.log(result);})
-    .catch(err => {console.log(err);}) 
+  const handleSubmit = async (e) => {
+    
+    return await new Promise((resolve, reject)=>{
+      axios.post('http://localhost:5174/login', {email: email})
+      .then(result => {
+        console.log(result.data);
+        if(result.data === 'ok'){
+          resolve(true);
+        }else{
+          resolve(false);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      })
+    })
   }
 
   return (
@@ -125,7 +138,7 @@ function Login() {
         >
           <div className="min-h-full w-full flex justify-center items-center">
             <div className="h-full w-[40%] flex items-center justify-center">
-              <img className="h-[35%]" src={test_svg} alt="" />
+              <img className="h-[35%]" src={loginIMG} alt="" />
             </div>
             <div className="h-full w-[70%] flex flex-col justify-center items-center">
               <div className="w-full px-20 text-center mt-10">
@@ -165,8 +178,13 @@ function Login() {
                     }`}
                     disabled={!validEmail()}
                     onClick={() => {
-                      nextSlide();
-                      handleSubmit();
+                      handleSubmit().then(success => {
+                        if(success){
+                          nextSlide();
+                        }else{
+
+                        }
+                      })
                       console.log(JSON.stringify({ email: email }));
                     }}
                   >
