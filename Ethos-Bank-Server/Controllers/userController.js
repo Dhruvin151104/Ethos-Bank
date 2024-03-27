@@ -24,9 +24,14 @@ const otpController = expressAsyncHandler((req, res) => {
     if(OTP===otp){
         res.status(200).json("ok");
     }else{
-        console.log(otp);
-        res.json("No User found in DB")
+        res.json("Not ok")
     }
 });
 
-export {loginController,otpController};
+const confirmController = expressAsyncHandler((req, res) => {
+    const {email} = req.body;
+    const details = userModel.find({email:email});
+    // console.log(details);
+})
+
+export {loginController,otpController, confirmController};
