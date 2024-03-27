@@ -1,5 +1,7 @@
 import React from "react";
 import loginIMG from "../assets/sign-in.svg";
+import otpIMG from "../assets/otp.png";
+import verifyIMG from "../assets/verify.png";
 import test_svg from "../assets/test_svg.svg";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -182,7 +184,7 @@ function Login() {
                         if(success){
                           nextSlide();
                         }else{
-
+                          alert("No user exists with the entered email, Enter a valid email");
                         }
                       })
                       console.log(JSON.stringify({ email: email }));
@@ -198,7 +200,7 @@ function Login() {
           {/* Otp Part */}
           <div className="min-h-full w-full  flex justify-center items-center">
             <div className="h-full w-[40%] flex items-center justify-center">
-              <img className="h-[35%]" src={test_svg} alt="" />
+              <img className="h-[35%]" src={otpIMG} alt="" />
             </div>
 
             <div className="h-full w-[70%] flex flex-col justify-center items-center">
@@ -252,7 +254,7 @@ function Login() {
           {/* Confirmation Part */}
           <div className="min-h-full w-full flex justify-center items-center">
             <div className="h-full w-[40%] flex items-center justify-center">
-              <img className="h-[35%]" src={test_svg} alt="" />
+              <img className="h-[35%]" src={verifyIMG} alt="" />
             </div>
 
             <div className="h-full w-[70%] flex flex-col justify-center items-center">

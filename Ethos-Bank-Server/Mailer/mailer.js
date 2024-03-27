@@ -36,7 +36,7 @@ function Mailer(to) {
     const sendMail = async (transporter, mailOptions) => {
         try {
             await transporter.sendMail(mailOptions);
-            console.log("Email Sent");
+            console.log(`Email Sent to ${to}`);
         } catch (error) {
             console.log(error);
         }
