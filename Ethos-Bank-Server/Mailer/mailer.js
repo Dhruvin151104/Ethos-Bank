@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import generateOTP from "./OTPgen.js"
 import { config } from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -9,7 +8,7 @@ const __dirname = dirname(__filename);
 
 config({ path: `${__dirname}/../.env` });
 
-function Mailer(to) {
+function Mailer(to,otp) {
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -22,7 +21,6 @@ function Mailer(to) {
         }
     });
 
-    const OTP = generateOTP();
     const mailOptions = {
         from: {
             name: 'Ethos Bank',
@@ -30,7 +28,7 @@ function Mailer(to) {
         },
         to: `${to}`, // list of receivers
         subject: "Testing OTP generation JD", // Subject line
-        text: `OTP: ${OTP}`, // plain text body
+        text: `OTP: ${otp}`, // plain text body
     };
 
     const sendMail = async (transporter, mailOptions) => {

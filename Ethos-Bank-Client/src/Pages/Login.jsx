@@ -1,5 +1,5 @@
 import React from "react";
-import loginIMG from "../assets/sign-in.svg";
+import loginIMG from "../assets/loginIMG.png";
 import otpIMG from "../assets/otp.png";
 import verifyIMG from "../assets/verify.png";
 import test_svg from "../assets/test_svg.svg";
@@ -78,7 +78,7 @@ function Login() {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitEmail = async (e) => {
     
     return await new Promise((resolve, reject)=>{
       axios.post('http://localhost:5174/login', {email: email})
@@ -97,8 +97,27 @@ function Login() {
     })
   }
 
+  const handleSubmitOtp = async (e) =>{
+    let OTP = Object.values(otp).join("");
+    return await new Promise((resolve, reject)=>{
+      axios.post('http://localhost:5174/login/otp', {otp: OTP})
+      .then(result => {
+        console.log(result.data);
+        if(result.data === 'ok'){
+          resolve(true);
+        }else{
+          resolve(false);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      })
+    })
+  }
+
   return (
-    <div className="h-[100vh] w-[100vw] bg-main-theme font-[Poppins] justify-center items-center flex">
+    <div className="h-[100vh] w-[100vw] bg-main-theme  font-[Poppins] justify-center items-center flex">
       <div className="h-[75%] w-[65%] bg-white rounded-xl shadow-2xl flex overflow-hidden">
         {/* Scroll Part */}
         <div className="h-full w-[20%] bg-gradient-to-r from-sky-500 to-blue-900 flex items-center justify-center gap-4">
@@ -136,7 +155,7 @@ function Login() {
         {/* Email Part */}
         <div
           id="login"
-          className="h-full w-[80%] flex flex-col items-center duration-[600ms] ease-linear"
+          className="h-full w-[80%] flex flex-col items-center duration-[600ms] ease-linear "
         >
           <div className="min-h-full w-full flex justify-center items-center">
             <div className="h-full w-[40%] flex items-center justify-center">
@@ -180,7 +199,7 @@ function Login() {
                     }`}
                     disabled={!validEmail()}
                     onClick={() => {
-                      handleSubmit().then(success => {
+                      handleSubmitEmail().then(success => {
                         if(success){
                           nextSlide();
                         }else{
@@ -239,7 +258,13 @@ function Login() {
                     }`}
                     disabled={!isValidOtp()}
                     onClick={() => {
-                      nextSlide();
+                      handleSubmitOtp().then(success => {
+                        if(success){
+                          nextSlide();
+                        }else{
+                          alert("Invalid OTP");
+                        }
+                      })
                       let OTP = Object.values(otp).join("");
                       console.log(JSON.stringify({ otp: OTP }));
                     }}
