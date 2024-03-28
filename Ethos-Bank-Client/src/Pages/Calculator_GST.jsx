@@ -44,7 +44,7 @@ function Calculator_GST() {
   };
 
   return (
-    <div className="bg-main-theme font-[Poppins] mb-10">
+    <div className="bg-main-theme font-[Poppins] mb-10 w-full">
       <div className=" bg-inherit w-full h-[90vh] gap-4  pt-5">
         <div className=" w-full h-1/5 px-24 flex flex-col gap-4 justify-center">
           <p className=" text-[2.5rem] font-semibold text-[#154166]">

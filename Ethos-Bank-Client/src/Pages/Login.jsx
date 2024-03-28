@@ -2,20 +2,18 @@ import React from "react";
 import loginIMG from "../assets/loginIMG.png";
 import otpIMG from "../assets/otp.png";
 import verifyIMG from "../assets/verify.png";
-import test_svg from "../assets/test_svg.svg";
+import Inputsingle from "../components/Inputsingle";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
   const [index, setindex] = useState(1);
   const [email, setemail] = useState("");
-  const [focusIndex, setfocusIndex] = useState(0);
   const [otp, setotp] = useState({});
-  const inputOtpRef = useRef({});
-  const onSubmit = (data) => console.log(data);
+  const [focusIndex, setfocusIndex] = useState(0);
+  const inputRef = useRef({});
 
   const nextSlide = () => {
     const parent = document.getElementById("login");
@@ -38,40 +36,9 @@ function Login() {
     return emailRegex.test(email);
   };
 
-  const otpInput = (props) => {
-    useEffect(() => {
-      if (focusIndex === parseInt(props.name)) {
-        setotp({ ...otp, [inputOtpRef.current[props.name].name]: "" });
-        inputOtpRef.current[props.name].focus();
-      } else {
-        inputOtpRef.current[props.name].blur();
-      }
-    }, [focusIndex]);
-
-    return (
-      <input
-        ref={(el) => (inputOtpRef.current[props.name] = el)}
-        type="number"
-        name={props.name}
-        value={otp[props.name] || ""}
-        className="outline-none h-12 w-12 bg-gray-200 shadow-inner rounded-lg text-center caret-transparent text-2xl font-medium focus:bg-blue-500 remove-arrow"
-        onChange={handleChange}
-        onClick={(e) => {
-          e.target.focus();
-          setfocusIndex(parseInt(props.name));
-        }}
-      ></input>
-    );
-  };
-
-  const handleChange = (e) => {
-    setotp({ ...otp, [e.target.name]: e.target.value });
-    setfocusIndex(parseInt(e.target.name) + 1);
-  };
-
   const isValidOtp = () => {
-    for (const key in inputOtpRef.current) {
-      if (inputOtpRef.current[key].value === "") {
+    for (const key in inputRef.current) {
+      if (inputRef.current[key].value === "") {
         return false;
       }
     }
@@ -234,12 +201,13 @@ function Login() {
 
               <div className="h-[40%] w-full flex justify-center flex-col items-center gap-10">
                 <div className="flex h-[30%] w-full justify-center items-center gap-5">
-                  {otpInput({ name: "1" })}
-                  {otpInput({ name: "2" })}
-                  {otpInput({ name: "3" })}
-                  {otpInput({ name: "4" })}
-                  {otpInput({ name: "5" })}
-                  {otpInput({ name: "6" })}
+                  <Inputsingle name="1" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  <Inputsingle name="2" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  <Inputsingle name="3" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  <Inputsingle name="4" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  <Inputsingle name="5" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  <Inputsingle name="6" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
+                  
                 </div>
 
                 <div className="flex w-full  h-[20%] items-center justify-evenly px-5">
