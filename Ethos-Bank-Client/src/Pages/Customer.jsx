@@ -41,7 +41,7 @@ function Customer() {
   }
 
   return (
-    <div className="h-max px-20 w-full bg-main-theme flex flex-col justify-center gap-20 items-center py-10 font-[Poppins] ">
+    <div className="h-max px-20 w-full bg-main-theme flex flex-col justify-center gap-20 items-center py-10 font-[Poppins]">
       {/* Profile */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-1/2 bg-slate-100 flex pl-10 font-semibold text-lg rounded-2xl">
@@ -58,10 +58,10 @@ function Customer() {
             <p>:</p>
           </div>
           <div className="flex flex-col justify-evenly items-start pl-5 w-[70%] font-light ">
-            <p>Lorem, ipsum dolor.</p>
-            <p>Lorem, ipsum dolor.</p>
-            <p>Lorem, ipsum dolor.</p>
-            <p>Lorem, ipsum dolor.</p>
+            <p>EB87654321</p>
+            <p>Jaydatt Dholakiya</p>
+            <p>+91 6354014104</p>
+            <p>jaydattsonijs@gmail.com</p>
           </div>
         </div>
         <div className="h-[80%] w-2/5 bg-slate-100 px-2 rounded-2xl font-semibold text-lg flex justify-evenly items-center">
