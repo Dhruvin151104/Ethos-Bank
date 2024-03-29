@@ -5,6 +5,7 @@ import Calculator_GST from "./Pages/Calculator_GST";
 import Calculator_ROI from "./Pages/Calculator_ROI";
 import Calculator_CAGR from "./Pages/Calculator_CAGR";
 import Customer from "./Pages/Customer";
+import Loan from "./Pages/Loan";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import ContactUS from "./Pages/ContactUS";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contactus" element={<ContactUS />} />
+        <Route path="/loan" element={<Loan />} />
         <Route path="/calculator" element={<Calculator />}>
           <Route path="/calculator/gst" element={<Calculator_GST />} />
           <Route path="roi" element={<Calculator_ROI />} />
