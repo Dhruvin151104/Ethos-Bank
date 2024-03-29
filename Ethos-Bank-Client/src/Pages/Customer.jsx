@@ -69,14 +69,14 @@ function Customer() {
             <img src={rupee} alt="" className=" h-[22vh]" />
             <p className=" absolute bg-yellow-200"></p>
           </div>
-          <div className="h-full w-3/5  flex flex-col justify-evenly items-center rounded-2xl">
-            <p className="text-5xl h-3/5 w-full flex items-center justify-center">
+          <div className="h-full w-3/5  flex flex-col justify-center items-center rounded-2xl">
+            <p className="text-5xl h-2/5 w-full flex items-center pt-10 justify-center">
               Balance
             </p>
-            <div className="h-2/5 w-full flex items-center justify-center">
+            <div className="w-full h-2/5 flex items-center justify-center">
               {!showBalance && (
                 <button
-                  className="text-white text-lg w-[40%] py-2 rounded-lg bg-green-600 hover:bg-green-500 duration-300 ease-linear font-semibold"
+                  className="text-white text-lg w-[40%] py-2 rounded-lg bg-sky-600 hover:bg-sky-400 duration-300 ease-linear font-semibold"
                   onClick={() => {
                     setshowBalance(true);
                   }}
