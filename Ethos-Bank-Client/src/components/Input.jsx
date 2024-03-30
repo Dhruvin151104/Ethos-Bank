@@ -2,7 +2,7 @@ import React from "react";
 
 function Input(props) {
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-2 w-full">
       <p className="text-2xl text-[#154166] font-semibold">
         {props.heading}
       </p>
