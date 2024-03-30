@@ -51,7 +51,7 @@ function Loan() {
       </div>
 
       {/* Calculator Part */}
-      <div className="w-full h-[80vh] bg-white shadow-inner rounded-2xl overflow-hidden flex py-10 justify-evenly px-2">
+      <div className="w-full h-[75vh] bg-white shadow-inner rounded-2xl overflow-hidden flex py-10 justify-evenly px-2">
         {/* Image div */}
         <div className="h-full w-[20%] flex justify-center items-center">
           <img src={loanCalc} alt="" className="h-2/5" />
@@ -61,8 +61,8 @@ function Loan() {
         <div className="h-full w-[75%] bg-slate-100 shadow-inner rounded-2xl flex">
           {/* Input div */}
           <div className="h-full w-[60%] p-4">
-            <div className="h-full w-full flex flex-col justify-center items-start pl-4 gap-1">
-              <div className=" h-[20%] font-semibold text-3xl text-[#154166] flex justify-center items-center w-full">
+            <div className="h-full w-full flex flex-col justify-evenly items-start pl-4 gap-1">
+              <div className=" h-[10%] font-semibold text-3xl text-[#154166] flex justify-center items-center w-full">
                 Monthly EMI Calculator
               </div>
               <div className="h-[80%] flex flex-col justify-center items-start pl-4 gap-7 w-full">
@@ -95,7 +95,7 @@ function Loan() {
           <div className="h-full w-[45%]  p-4">
             <div className="h-full w-full flex flex-col justify-center items-center">
               <div className="h-[90%] w-[95%] bg-white shadow-inner rounded-2xl overflow-hidden flex flex-col items-center">
-                <div className="h-[16%] w-full bg-sky-600 flex justify-center items-center text-3xl font-semibold  text-white">
+                <div className="h-[20%] w-full bg-sky-600 flex justify-center items-center text-3xl font-semibold  text-white">
                   Monthly EMI
                 </div>
                 <div className="flex justify-start items-center flex-col gap-6 pt-8 w-full">
@@ -103,7 +103,7 @@ function Loan() {
                     ₹ {EMI().emi}
                   </div>
 
-                  <div className="text-md font[Poppins] text-black font-semibold w-[90%] h-[26vh] rounded-2xl flex items-center justify-center shadow-inner bg-gray-100">
+                  <div className="text-md font[Poppins] text-black font-semibold w-[95%] h-[26vh] rounded-2xl flex items-center justify-center shadow-inner bg-gray-100">
                     <div className="w-full h-[25vh] flex justify-around items-center">
                       <Circular_Progress
                         height="20vh"
@@ -115,7 +115,7 @@ function Loan() {
                         <div className="flex items-start flex-col">
                           <div className="w-full flex gap-2 items-center">
                             <div className=" w-4 h-4 bg-sky-200"></div>
-                            <p>Principal Amount</p>
+                            <p>Loan Amount</p>
                           </div>
                           <p className=" pl-7">₹ {loanAmount ? loanAmount : 0}</p>
                         </div>
@@ -130,7 +130,6 @@ function Loan() {
                     </div>
                   </div>
                 </div>
-                <div className="h-[10%] w-[90%] flex flex-col mt-4"><LoginButton name="Apply Now" y="0.7rem" /></div>
               </div>
             </div>
           </div>
