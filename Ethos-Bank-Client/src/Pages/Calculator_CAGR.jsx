@@ -31,12 +31,14 @@ function Calculator_CAGR() {
                 value1="0"
                 value2={gains}
               />
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-2 items-center">
-                  <div className=" w-5 h-5 bg-sky-200"></div>Invested
+              <div className="flex flex-col gap-6">
+                <div className="flex gap-2 items-center text-lg">
+                  <div className=" w-5 h-5 bg-sky-200"></div>
+                  <p>Invested</p>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className=" w-5 h-5 bg-sky-600"></div>Gains
+                <div className="flex gap-2 items-center text-lg">
+                  <div className=" w-5 h-5 bg-sky-600"></div>
+                  <p>Gains</p>
                 </div>
               </div>
             </div>}

@@ -25,7 +25,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link className={textProperties} to="/">
+              <Link className={textProperties} to="/loan">
                 Loans
               </Link>
             </li>
