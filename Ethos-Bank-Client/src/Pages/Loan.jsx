@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import loanIMG from "../assets/loan.png";
 import LoginButton from "../components/LoginButton";
 import Input from "../components/Input";
+import loanApplication from "../assets/loanApplication.png";
 import test_svg from "../assets/test_svg.svg";
 import loanCalc from "../assets/loanCalc.png";
 import Circular_Progress from "../components/Circular_Progress";
@@ -10,6 +11,20 @@ function Loan() {
   const [loanAmount, setloanAmount] = useState("");
   const [tenure, settenure] = useState("");
   const [rateOfInterest, setrateOfInterest] = useState("");
+  const [showLoanApplication, setshowLoanApplication] = useState(false);
+  const [email, setemail] = useState("");
+  const [name, setname] = useState("");
+  const [number, setnumber] = useState("");
+
+  const validEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validDetails = () => {
+    if (name && email && number && validEmail(email)) return true;
+    return false;
+  };
 
   // EMI calculation
   const EMI = () => {
@@ -30,6 +45,7 @@ function Loan() {
 
   return (
     <div className="w-full min-h-[100vh] px-20 py-10 flex flex-col justify-center items-center gap-20 font-[Poppins]">
+      {/* Apply Part */}
       <div className=" w-full h-[90vh] flex">
         <div className="h-full w-3/5 flex justify-center pl-2">
           <img src={loanIMG} alt="" className="h-[105vh] object-cover" />
@@ -44,7 +60,14 @@ function Loan() {
               <p className=" text-black text-2xl font-light mb-5">
                 Lorem ipsum dolor sit amet.
               </p>
-              <LoginButton name="Apply Now" y="0.7rem" />
+              <div
+                className="flex flex-col w-full"
+                onClick={() => {
+                  setshowLoanApplication(true);
+                }}
+              >
+                <LoginButton name="Apply Now" y="0.7rem" />
+              </div>
             </div>
           </div>
         </div>
@@ -65,7 +88,7 @@ function Loan() {
               <div className=" h-[10%] font-semibold text-3xl text-[#154166] flex justify-center items-center w-full">
                 Monthly EMI Calculator
               </div>
-              <div className="h-[80%] flex flex-col justify-center items-start pl-4 gap-7 w-full">
+              <div className="h-[80%] flex flex-col justify-center items-start pl-4 gap-9 w-full">
                 <Input
                   type="number"
                   settext={setloanAmount}
@@ -117,7 +140,9 @@ function Loan() {
                             <div className=" w-4 h-4 bg-sky-200"></div>
                             <p>Loan Amount</p>
                           </div>
-                          <p className=" pl-7">₹ {loanAmount ? loanAmount : 0}</p>
+                          <p className=" pl-7">
+                            ₹ {loanAmount ? loanAmount : 0}
+                          </p>
                         </div>
                         <div className="flex items-start flex-col">
                           <div className="w-full flex gap-2 items-center">
@@ -135,6 +160,75 @@ function Loan() {
           </div>
         </div>
       </div>
+
+      {/* Application Part */}
+      {showLoanApplication && (
+        <div className="h-full w-full fixed top-0 bg-gray-700/80 z-10 flex justify-center items-center duration-300 ease-linear">
+          <div className="h-[35rem] w-[60rem] bg-slate-100 rounded-2xl shadow-inner relative flex overflow-hidden">
+            <div className="h-full w-[30%]  flex justify-center items-center">
+              <img src={loanApplication} alt="" />
+            </div>
+            <div className="h-full w-[70%] ">
+              <p className="h-[20%] w-[80%] text-3xl font-semibold flex justify-center items-center text-[#154166]">
+                Enter your Details
+              </p>
+              <div className="w-full h-[60%] flex flex-col pl-4 gap-7">
+                <Input
+                  type="text"
+                  settext={setname}
+                  text={name}
+                  placeholder="Enter your name"
+                  heading="Name"
+                />
+                <Input
+                  type="number"
+                  settext={setnumber}
+                  text={number}
+                  placeholder="Enter your mobile  number"
+                  heading="Mobile No."
+                />
+                <Input
+                  type="email"
+                  settext={setemail}
+                  text={email}
+                  placeholder="Enter your email id"
+                  heading="Email"
+                />
+              </div>
+              <div className="h-[20%] w-full flex justify-start items-center pl-4 gap-7">
+                <button
+                  className="py-4 h-1/2 rounded-lg shadow-inner text-lg font-semibold w-[38%] bg-gray-200 hover:bg-blue-600 hover:text-white duration-200 ease-linear"
+                  onClick={() => {
+                    setshowLoanApplication(false);
+                  }}
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className={`py-4 h-[50%] rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200 ${
+                    validDetails()
+                      ? "text-black hover:text-white hover:bg-blue-600"
+                      : "text-slate-500 cursor-not-allowed "
+                  }`}
+                  disabled={!validDetails()}
+                  onClick={() => {
+                    console.log({
+                      name: name,
+                      phoneNumber: number,
+                      email: email,
+                    });
+                    alert("Application Submitted Successfully");
+                    setshowLoanApplication(false);
+                  }}
+                >
+                  LOG IN
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -61,7 +61,7 @@ function Footer() {
             {usefulLinks.map((e,index) => element({text:e,key:index}))}
           </div>
         </div>
-        <div className=" h-[90%] w-[25%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-10">
+        <div className=" h-[90%] w-[25%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-5">
           <div className="h-[30%] w-full flex items-end">
             <p className=" text-2xl font-semibold text-[#154166]">Services</p>
           </div>
@@ -69,7 +69,7 @@ function Footer() {
             {Services.map((e,index) => element({text:e,key:index}))}
           </div>
         </div>
-        <div className=" h-[90%] w-[35%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-10">
+        <div className=" h-[90%] w-[35%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-5">
           <div className="h-[30%] w-full flex items-end">
             <p className=" text-2xl font-semibold text-[#154166]">Contact Us</p>
           </div>
