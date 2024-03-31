@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import test from "../assets/test1.jpg"
+import noIMG from "../assets/No_Image_Available.jpg"
 import Spinner from "./Spinner"
 
 function News() {
@@ -11,6 +12,9 @@ function News() {
     status: null,
   })
   const card = (props) => {
+    const handleError = (e)=>{
+      e.target.src=noIMG
+    }
     return (
       <div
         key={props.key}
@@ -20,8 +24,9 @@ function News() {
           <div className="h-[45%] w-full">
             <img
               src={props.urlImg}
-              alt=""
-              className=" object-cover h-full w-full"
+              alt="Image"
+              onError={handleError}
+              className=" object-fill h-full w-full"
             />
           </div>
           <div className="h-[45%] w-full py-2 px-5 overflow-hidden flex flex-col items-center gap-2">
@@ -45,7 +50,7 @@ function News() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_FAKE_NEWS_API)
+        const response = await fetch(import.meta.env.VITE_NEWS_API)
         if (response.ok) {
           const data = await response.json()
           setnews({
@@ -125,7 +130,7 @@ function News() {
               key: index,
               title: e.title ? e.title : "",
               description: e.description ? e.description : "",
-              urlImg: e.urlToImage ? e.urlToImage : test,
+              urlImg: e.urlToImage ? e.urlToImage : noIMG,
               url: e.url ? e.url : "",
             })
           )}

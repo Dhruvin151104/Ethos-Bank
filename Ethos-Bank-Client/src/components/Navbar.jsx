@@ -1,10 +1,12 @@
 import React from "react";
 import Logo from "./Logo";
 import logoIMG from "../assets/favicon.png";
+import profileM from "../assets/profileNavbarMan.png"
+import profileF from "../assets/profileNavbarWoman.png"
 import LoginButton from "./LoginButton";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar(props) {
   const textProperties =
     "hover:border-b-[3px] border-sky-500 py-1 duration-150 ease-in-out hover:text-sky-500";
 
@@ -20,7 +22,7 @@ function Navbar() {
         <div className="h-full flex justify-center items-center w-2/4">
           <ul className="flex w-max text-gray-500 gap-8 font-[Poppins] text-lg font-semibold">
             <li>
-              <Link className={textProperties} to="">
+              <Link className={textProperties} to="/payments">
                 Payments
               </Link>
             </li>
@@ -42,9 +44,10 @@ function Navbar() {
           </ul>
         </div>
         <div className="h-full flex items-center justify-center w-1/4">
-          <Link to='/login'>
+          {!props.isLoggedIn &&  <Link to='/login'>
             <LoginButton x="1.5rem" y="0.4rem" name="Login" />
-          </Link>
+          </Link>}
+          {props.isLoggedIn && <img src={localStorage.getItem("userDetail").gender===""} alt="" className="h-[90%] cursor-pointer"/>}
         </div>
       </div>
     </div>
