@@ -37,7 +37,7 @@ const confirmController = expressAsyncHandler(async (req, res) => {
     const customerDetail = await userModel.findOne({email:email});
     const cardDetails = await cardModel.findOne({"accNo":customerDetail.accNo});
     console.log(cardDetails);
-    const response = { name:customerDetail.name, accNo:customerDetail.accNo, email:customerDetail.email, balance:customerDetail.balance, phoneNo:customerDetail.phoneNo, IFSC:customerDetail.IFSC, gender:customerDetail.gender};
+    const response = { name:customerDetail.name, accNo:customerDetail.accNo, email:customerDetail.email, balance:customerDetail.balance, phoneNo:customerDetail.phoneNo, IFSC:customerDetail.IFSC, gender:customerDetail.gender, isCardHolder:customerDetail.isCardHolder};
     res.status(200).json(customerDetail)
 })
 
