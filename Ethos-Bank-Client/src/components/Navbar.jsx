@@ -1,13 +1,71 @@
 import React from "react";
 import Logo from "./Logo";
 import logoIMG from "../assets/favicon.png";
-import profileM from "../assets/profileNavbarMan.png"
-import profileF from "../assets/profileNavbarWoman.png"
+import profileM from "../assets/profileNavbarMan.png";
+import profileF from "../assets/profileNavbarWoman.png";
 import LoginButton from "./LoginButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 function Navbar(props) {
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+  const navigate = useNavigate();
+
+  const FlyoutLink = ({ children, FlyoutContent }) => {
+    const [open, setOpen] = useState(false);
+    const show = open && FlyoutContent;
+    return (
+      <div
+        className="relative h-full"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
+        <Link to="/customer" className=" relative ">
+          {children}
+        </Link>
+        <AnimatePresence>
+          {show && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              style={{ x: "-50%" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="absolute top-12 -translate-x-1/2 left-1/2 "
+            >
+              <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" />
+              <FlyoutContent />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+
+  const FlyoutContent = () => {
+    return (
+      <div className=" h-[50px] w-[110px] bg-transparent flex justify-center items-center">
+        <button
+          className="text-white text-sm rounded-xl bg-red-600 hover:bg-red-400 duration-300 ease-linear font-semibold w-[60%] h-[60%] flex items-center justify-center"
+          onClick={e => {
+            e.stopPropagation();
+            logOut();
+          }
+        }
+        >
+          Log Out
+        </button>
+      </div>
+    );
+  };
+
+  function logOut() {
+    localStorage.removeItem("userDetails");
+    props.setisLoggedIn(false);
+    navigate('/');
+  }
+
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const textProperties =
     "hover:border-b-[3px] border-sky-500 py-1 duration-150 ease-in-out hover:text-sky-500";
 
@@ -45,10 +103,20 @@ function Navbar(props) {
           </ul>
         </div>
         <div className="h-full flex items-center justify-center w-1/4">
-          {!props.isLoggedIn &&  <Link to='/login'>
-            <LoginButton x="1.5rem" y="0.4rem" name="Login" />
-          </Link>}
-          {props.isLoggedIn && <Link to='/customer' className="h-full"> <img src={userDetails.gender==="Male"?profileM:profileF} alt="" className="h-[90%] cursor-pointer"/></Link>}
+          {!props.isLoggedIn && (
+            <Link to="/login">
+              <LoginButton x="1.5rem" y="0.4rem" name="Login" />
+            </Link>
+          )}
+          {props.isLoggedIn && (
+            <FlyoutLink FlyoutContent={FlyoutContent}>
+              <img
+                src={userDetails.gender === "Male" ? profileM : profileF}
+                alt=""
+                className="h-[90%] cursor-pointer"
+              />
+            </FlyoutLink>
+          )}
         </div>
       </div>
     </div>

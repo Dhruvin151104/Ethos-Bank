@@ -50,7 +50,7 @@ function News() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_NEWS_API)
+        const response = await fetch(import.meta.env.VITE_FAKE_NEWS_API)
         if (response.ok) {
           const data = await response.json()
           setnews({

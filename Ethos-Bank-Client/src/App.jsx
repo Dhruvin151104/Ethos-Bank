@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="bg-main-theme">
-      {isLoginPage && <Navbar isLoggedIn={isLoggedIn}/>}
+      {isLoginPage && <Navbar isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}/>}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setisLoggedIn={setisLoggedIn}/>} />

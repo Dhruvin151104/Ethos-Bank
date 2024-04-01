@@ -23,8 +23,7 @@ function Home() {
         <div className="h-full w-[70%] pl-6 pr-2  flex flex-col justify-center items-start gap-3">
           <p className="text-3xl font-semibold">{props.heading}</p>
           <p className="text-md text-gray-500">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
-            labore.
+            {props.text}
           </p>
           <a
             style={{
@@ -43,7 +42,7 @@ function Home() {
 
   return (
     <div className="font-[Poppins] bg-main-theme">
-      <div className=" h-[90vh] w-full flex justify-center items-center relative px-20">
+      <div className=" h-[90vh] w-full flex justify-center items-center px-20">
         <div className=" h-3/5 w-[45%] flex bg-transparent justify-center items-start flex-col gap-10">
           <div className="text-black text-4xl font-medium">
             <p className="mb-2 "><span className=" font-semibold text-blue-600">Supercharge</span> your Banking</p>
@@ -85,6 +84,7 @@ function Home() {
                   heading: "Loans",
                   color: "#4D4DFF",
                   bgcolor: "#EAEAFD",
+                  text:"Unlock your dreams with flexible loans tailored just for you.",
                 })}
               </div>
               <div className="h-full w-full flex items-center justify-center">
@@ -95,6 +95,7 @@ function Home() {
                   heading: "Calculators",
                   color: "#84cc16",
                   bgcolor: "#F7FEE7",
+                  text:"Empower your finances with our calculators: GST, CAGR, ROI, and more.",
                 })}
               </div>
               <div className="h-full w-full col-start-2 row-span-2 row-start-1 flex items-center justify-center">
@@ -105,8 +106,7 @@ function Home() {
                   <div className="h-[50%] w-full pl-6 pr-2 flex flex-col justify-start pt-12 items-center gap-8">
                     <p className="text-3xl font-semibold ">Payments</p>
                     <p className="text-lg text-gray-500">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Reprehenderit reiciendis minima fugit nulla laborum
+                    Simplify transactions with our secure payment gateway. Fast, reliable, and hassle-free banking experience awaits.
                     </p>
                   </div>
                   <a

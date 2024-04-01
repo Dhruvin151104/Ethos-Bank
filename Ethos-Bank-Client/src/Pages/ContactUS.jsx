@@ -16,7 +16,7 @@ function ContactUS() {
                 </div>
                 <div className='h-[50%] w-full pl-6 pr-2 flex flex-col gap-3'>
                     <p className='text-xl font-semibold'>{props.heading}</p>
-                    <p className='text-md text-gray-500'>Lorem ipsum dolor sit amet.</p>
+                    <p className='text-md text-gray-500'>{props.text}</p>
                 </div>
             </div>
         )
@@ -29,10 +29,10 @@ function ContactUS() {
 
         <div className='h-[85%] w-full  flex justify-center items-center'>
             <div className='h-full w-1/2  grid grid-cols-2 grid-rows-2 place-items-center'>
-                {element({img:Address, heading:"Address"})}
-                {element({img:call, heading:"Call Us"})}
-                {element({img:clock, heading:"Open Hours"})}
-                {element({img:email, heading:"Email Us"})}
+                {element({img:Address, heading:"Locate Us", text:"Locate your nearest branch now!"})}
+                {element({img:call, heading:"Call Us", text:"Customer Care: 1234567890"})}
+                {element({img:clock, heading:"Open Hours", text:"10:00AM - 5:00PM (Monday - Friday)"})}
+                {element({img:email, heading:"Email Us", text:"ethos.fintech@gmail.com"})}
             </div>
             <div className='h-[90%] w-1/2 flex justify-center items-center rounded-2xl shadow-inner mx-8 bg-slate-100 border-b-sky-500 border-b-4'>
                 <div className='h-full w-[20rem] flex justify-evenly items-center flex-col'>

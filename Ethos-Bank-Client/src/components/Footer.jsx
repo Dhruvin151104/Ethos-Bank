@@ -37,9 +37,7 @@ function Footer() {
         </div>
         <div className=" text-md font-light flex flex-col gap-2">
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel,
-            provident quis obcaecati libero est mollitia error nostrum corporis
-            necessitatibus delectus!
+          Experience seamless banking with Ethos Bank. Secure transactions, personalized services, and trusted solutions. Your financial goals are our priority.
           </p>
           <div className="flex gap-4">
             {media({ img: fb,key:"1"})}
@@ -75,8 +73,7 @@ function Footer() {
           </div>
           <div className=" w-full text-md flex flex-col justify-start gap-5 h-[70%]">
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam,
-              aliquid.
+              Ethos Private Limited, 42 Financial Avenue, Prosperity Heights, Metro City, New York, 10001
             </p>
             <div className="text-sm">
               <p>

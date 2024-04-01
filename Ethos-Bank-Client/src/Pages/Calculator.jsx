@@ -16,8 +16,8 @@ function Calculator() {
         key={props.key}
         className={`h-[90%] w-[30%] shadow-md rounded-2xl duration-150 ease-linear cursor-pointer ${
           index === props.key
-            ? "bg-sky-100 outline-2 outline-sky-500 outline"
-            : "bg-white"
+            ? "bg-green-100 outline-2 outline-green-500 outline"
+            : "hover:bg-sky-100 hover:outline-2 hover:outline-sky-500 hover:outline"
         }`}
         onClick={()=>{
             navigate(props.cal)
@@ -36,8 +36,9 @@ function Calculator() {
   };
 
   return (
-    <div className="h-max min-h-[80vh] w-full  flex flex-col justify-center items-center pt-10 gap-10">
-      <div className="h-[40vh] w-full px-20">
+    <div className="h-max min-h-[80vh] w-full  flex flex-col justify-center items-center gap-10">
+      <div className="h-[10vh] w-full flex justify-center items-center font-semibold text-[#154166] text-4xl">Calculators</div>
+      <div className="h-[40vh] w-full px-20 ">
         <div className="h-full w-full 0 flex justify-evenly items-center gap-3">
           {box({ name: "GST", key: 1,img:gst,cal:"gst"})}
           {box({ name: "ROI", key: 2,img:roi,cal:"roi"})}

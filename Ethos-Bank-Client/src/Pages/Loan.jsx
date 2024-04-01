@@ -53,13 +53,12 @@ function Loan() {
         <div className="h-full w-2/5  flex justify-start items-center pl-7 pt-10">
           <div className=" h-3/5 w-full flex bg-transparent justify-center items-start flex-col gap-10">
             <div className="text-black text-4xl font-medium">
-              <p className="mb-2 ">Lorem, ipsum dolor.</p>
-              <p>Lorem, ipsum dolor.</p>
+              <p className="mb-2 "><span className=" font-semibold text-blue-600">Flexible</span> Loan Solutions</p>
+              <p>with Ethos.</p>
             </div>
             <div className="flex flex-col gap-4">
               <p className=" text-black text-2xl font-light mb-5">
-                Lorem ipsum dolor sit amet.
-              </p>
+                Discover Your Path to Financial Freedom Today!</p>
               <div
                 className="flex flex-col w-full"
                 onClick={() => {
