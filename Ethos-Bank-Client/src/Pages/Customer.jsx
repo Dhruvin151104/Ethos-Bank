@@ -8,7 +8,7 @@ import payments from "../assets/profilepayments.svg"
 
 function Customer() {
   const [showBalance, setshowBalance] = useState(false);
-  const { name } = useParams();
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'))
 
   const buttons = (props) => {
     return (
@@ -58,10 +58,10 @@ function Customer() {
             <p>:</p>
           </div>
           <div className="flex flex-col justify-evenly items-start pl-5 w-[70%] font-light ">
-            <p>EB87654321</p>
-            <p>Jaydatt Dholakiya</p>
-            <p>+91 6354014104</p>
-            <p>jaydattsonijs@gmail.com</p>
+            <p>{userDetails.accNo}</p>
+            <p>{userDetails.name}</p>
+            <p>{userDetails.phoneNo}</p>
+            <p>@{userDetails.email}</p>
           </div>
         </div>
         <div className="h-[80%] w-2/5 bg-slate-100 px-2 rounded-2xl font-semibold text-lg flex justify-evenly items-center">
@@ -87,13 +87,13 @@ function Customer() {
               {showBalance && (
                 <p
                   className={`text-3xl cursor-pointer ${
-                    12000 < 0 ? "text-red-600" : ""
+                    userDetails.balance < 0 ? "text-red-600" : ""
                   }`}
                   onClick={() => {
                     setshowBalance(false);
                   }}
                 >
-                  ₹ 12,000
+                  ₹ {userDetails.balance}
                 </p>
               )}
             </div>

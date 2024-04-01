@@ -12,19 +12,26 @@ import ContactUS from "./Pages/ContactUS";
 import Login from "./Pages/Login";
 import { useLocation } from "react-router-dom";
 import Payments from "./Pages/Payments";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname !== "/login";
   const [isLoggedIn, setisLoggedIn] = useState(false)
 
+  useEffect(() => {
+    if(localStorage.getItem('userDetails')) setisLoggedIn(true);
+    else setisLoggedIn(false)  
+  }, [])
+  
+  
+
   return (
     <div className="bg-main-theme">
       {isLoginPage && <Navbar isLoggedIn={isLoggedIn}/>}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setisLoggedIn={setisLoggedIn}/>} />
         <Route path="/contactus" element={<ContactUS />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/payments" element={<Payments />} />
@@ -34,7 +41,7 @@ function App() {
           <Route path="cagr" element={<Calculator_CAGR />} />
         </Route>
         <Route path="/support" element={<ContactUS />} />
-        <Route path="/customer/:name" element={<Customer />} />
+        <Route path="/customer" element={<Customer />} />
       </Routes>
       {isLoginPage && <Footer />}
     </div>

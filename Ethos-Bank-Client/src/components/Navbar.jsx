@@ -7,6 +7,7 @@ import LoginButton from "./LoginButton";
 import { Link } from "react-router-dom";
 
 function Navbar(props) {
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'))
   const textProperties =
     "hover:border-b-[3px] border-sky-500 py-1 duration-150 ease-in-out hover:text-sky-500";
 
@@ -47,7 +48,7 @@ function Navbar(props) {
           {!props.isLoggedIn &&  <Link to='/login'>
             <LoginButton x="1.5rem" y="0.4rem" name="Login" />
           </Link>}
-          {props.isLoggedIn && <img src={localStorage.getItem("userDetail").gender===""} alt="" className="h-[90%] cursor-pointer"/>}
+          {props.isLoggedIn && <Link to='/customer' className="h-full"> <img src={userDetails.gender==="Male"?profileM:profileF} alt="" className="h-[90%] cursor-pointer"/></Link>}
         </div>
       </div>
     </div>

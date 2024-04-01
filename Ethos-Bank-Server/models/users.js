@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     IFSC:{type:String, required:true},
     balance:{type:Number, required:true},
     gender:{type:String, required:true},
-    isCardHolder:{type:Boolean, default:false}
+    isCardHolder:{type:Boolean, default:false }
 })
 
 const userModel = mongoose.model("users", userSchema)

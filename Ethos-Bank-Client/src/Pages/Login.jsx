@@ -7,11 +7,12 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const [index, setindex] = useState(1);
   const [email, setemail] = useState("");
   const [otp, setotp] = useState({});
+  const [isVerified, setisVerified] = useState(false);
   const [focusIndex, setfocusIndex] = useState(0);
   const inputRef = useRef({});
 
@@ -46,42 +47,66 @@ function Login() {
   };
 
   const handleSubmitEmail = async (e) => {
-    
-    return await new Promise((resolve, reject)=>{
-      axios.post('http://localhost:5174/login', {email: email})
-      .then(result => {
-        console.log(result.data);
-        if(result.data === 'ok'){
-          resolve(true);
-        }else{
-          resolve(false);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      })
-    })
-  }
+    return await new Promise((resolve, reject) => {
+      axios
+        .post("http://localhost:5174/login", { email: email })
+        .then((result) => {
+          console.log(result.data);
+          if (result.status === 200) {
+            localStorage.setItem("userDetails", JSON.stringify(result.data));
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  };
 
-  const handleSubmitOtp = async (e) =>{
+  const handleSubmitOtp = async (e) => {
     let OTP = Object.values(otp).join("");
-    return await new Promise((resolve, reject)=>{
-      axios.post('http://localhost:5174/login/otp', {otp: OTP})
-      .then(result => {
-        console.log(result.data);
-        if(result.data === 'ok'){
-          resolve(true);
-        }else{
+    return await new Promise((resolve, reject) => {
+      axios
+        .post("http://localhost:5174/login/otp", { otp: OTP,email:email,token:JSON.parse(localStorage.getItem('userDetails')).token})
+        .then((result) => {
+          console.log(result.data);
+          if (result.status === 200) {
+            setisVerified(true);
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
           resolve(false);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      })
-    })
-  }
+        });
+    });
+  };
+
+  const handleConfirmation = async () => {
+    return await new Promise((resolve, reject) => {
+      axios
+        .post("http://localhost:5174/login/details", { email: email })
+        .then((result) => {
+          console.log(result.data);
+          if (result.status === 200 && isVerified) {
+            localStorage.setItem("userDetails", JSON.stringify(result.data));
+            props.setisLoggedIn(true)
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  };
 
   return (
     <div className="h-[100vh] w-[100vw] bg-main-theme  font-[Poppins] justify-center items-center flex">
@@ -166,13 +191,15 @@ function Login() {
                     }`}
                     disabled={!validEmail()}
                     onClick={() => {
-                      handleSubmitEmail().then(success => {
-                        if(success){
+                      handleSubmitEmail().then((success) => {
+                        if (success) {
                           nextSlide();
-                        }else{
-                          alert("No user exists with the entered email, Enter a valid email");
+                        } else {
+                          alert(
+                            "No user exists with the entered email, Enter a valid email"
+                          );
                         }
-                      })
+                      });
                       console.log(JSON.stringify({ email: email }));
                     }}
                   >
@@ -191,7 +218,9 @@ function Login() {
 
             <div className="h-full w-[70%] flex flex-col justify-center items-center">
               <div className="w-full px-10 text-center mt-10">
-                <p className=" text-3xl font-semibold text-[#154166]">Verification</p>
+                <p className=" text-3xl font-semibold text-[#154166]">
+                  Verification
+                </p>
                 <p className=" text-lg font-medium text-center text-gray-500 mt-2">
                   A verification code has been sent to{" "}
                   <span className=" text-teal-400 font-semibold">{email}</span>.
@@ -201,13 +230,17 @@ function Login() {
 
               <div className="h-[40%] w-full flex justify-center flex-col items-center gap-10">
                 <div className="flex h-[30%] w-full justify-center items-center gap-5">
-                  <Inputsingle name="1" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  <Inputsingle name="2" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  <Inputsingle name="3" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  <Inputsingle name="4" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  <Inputsingle name="5" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  <Inputsingle name="6" parameter={otp} setparameter={setotp} focusIndex={focusIndex} setfocusIndex={setfocusIndex} inputRef={inputRef}/>
-                  
+                  {[...Array(6)].map((_, index) => (
+                    <Inputsingle
+                      key={index}
+                      name={String(index + 1)}
+                      parameter={otp}
+                      setparameter={setotp}
+                      focusIndex={focusIndex}
+                      setfocusIndex={setfocusIndex}
+                      inputRef={inputRef}
+                    />
+                  ))}
                 </div>
 
                 <div className="flex w-full  h-[20%] items-center justify-evenly px-5">
@@ -226,13 +259,13 @@ function Login() {
                     }`}
                     disabled={!isValidOtp()}
                     onClick={() => {
-                      handleSubmitOtp().then(success => {
-                        if(success){
+                      handleSubmitOtp().then((success) => {
+                        if (success) {
                           nextSlide();
-                        }else{
+                        } else {
                           alert("Invalid OTP");
                         }
-                      })
+                      });
                       let OTP = Object.values(otp).join("");
                       console.log(JSON.stringify({ otp: OTP }));
                     }}
@@ -271,7 +304,15 @@ function Login() {
                   <button
                     className="py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200 text-black hover:text-white hover:bg-blue-600"
                     onClick={() => {
-                      navigate(-1);
+                      handleConfirmation().then((success)=>{
+                        if(success){
+
+                          navigate(-1);
+                        }
+                        else{
+                          alert("Some error occured . Please try again later.")
+                        }
+                      })
                     }}
                   >
                     CONFIRM

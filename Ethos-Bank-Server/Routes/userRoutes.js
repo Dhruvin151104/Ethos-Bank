@@ -6,7 +6,7 @@ const Router = express.Router();
 
 Router.post("/login", loginController);
 Router.post("/login/otp", otpController);
-Router.get("/login/details", confirmController);
+Router.post("/login/details", confirmController);
 Router.post("/admin/createUser", signupController);
 
 Router.post("/admin/createCard", newCard);

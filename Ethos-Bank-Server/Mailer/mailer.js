@@ -34,7 +34,6 @@ function Mailer(to, otp) {
     const sendMail = async (transporter, mailOptions) => {
         try {
             await transporter.sendMail(mailOptions);
-            console.log(`Email Sent to ${to}`);
         } catch (error) {
             console.log(error);
         }
