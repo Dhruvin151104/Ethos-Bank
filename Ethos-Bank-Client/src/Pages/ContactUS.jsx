@@ -1,13 +1,59 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Address from "../assets/addressSVG.svg";
 import call from "../assets/callSVG.svg";
 import clock from "../assets/clockSVG.svg";
 import email from "../assets/emailSVG.svg";
-import sendMessage from "../assets/send-message.png"
+import sendMessageIMG from "../assets/send-message.png";
+import io from "socket.io-client";
 import chat from "../assets/chat.svg";
 import LoginButton from "../components/LoginButton";
+const socket = io.connect("http://localhost:5174");
 
 function ContactUS() {
+  const inputBox = useRef();
+  const [messages, setMessages] = useState([]);
+  const [startChat, setstartChat] = useState(false);
+  const messageBoxRef = useRef(null);
+
+  const recievedMessage = (data) => {
+    return (
+      <div className="min-h-[18%] w-full flex justify-start items-center">
+        <div className="h-full w-1/2 bg-gray-200 rounded-lg p-3 text-sm">
+          {data}
+        </div>
+      </div>
+    );
+  };
+
+  const sentMessage = (data) => {
+    return (
+      <div className="min-h-[18%] w-full flex justify-end items-center">
+        <div className="h-full w-1/2 bg-sky-400/70 rounded-lg p-3 text-sm">
+          {data}
+        </div>
+      </div>
+    );
+  };
+
+  const sendMessage = (data) => {
+    socket.emit("sendMessage", data);
+    setMessages((prevMessages) => [...prevMessages, sentMessage(data)]);
+    scrollToBottom();
+  };
+
+  useEffect(() => {
+    socket.on("receiveMessage", (data) => {
+      setMessages((prevMessages) => [...prevMessages, recievedMessage(data)]);
+      scrollToBottom();
+    });
+  }, [socket]);
+
+  const scrollToBottom = () => {
+    if (messageBoxRef.current) {
+      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+    }
+  };
+
   const element = (props) => {
     return (
       <div className=" cursor-pointer h-[80%] w-[80%] rounded-2xl flex justify-evenly items-center flex-col shadow-inner bg-slate-100 hover:bg-slate-200 duration-200 ease-linear border-b-sky-500 border-b-4">
@@ -21,6 +67,7 @@ function ContactUS() {
       </div>
     );
   };
+
   return (
     <div className=" font-[Poppins] h-[100vh]">
       <div className="h-[15%] flex items-center justify-center pt-5">
@@ -52,37 +99,62 @@ function ContactUS() {
             text: "ethos.fintech@gmail.com",
           })}
         </div>
-        <div className="h-[90%] w-1/2 flex justify-center items-center rounded-2xl shadow-inner mx-8 bg-slate-100 border-b-sky-500 border-b-4 overflow-hidden">
-          {/* <div className='h-full w-[20rem] flex justify-evenly items-center flex-col'>
-                    <img src={chat} alt="" className='h-[15rem]'/>
-                    <LoginButton name="Chat With Us" x="4rem"/>
-                </div> */}
-          <div className="h-full w-full px-5 pt-4">
-            <div className="h-[85%] w-full rounded-2xl bg-white outline-gray-300 outline outline-1 p-4 flex flex-col overflow-y-auto overflow-x-hidden gap-3">
-                <div className="min-h-[18%] w-full flex justify-start items-center">
-                    <div className="h-full w-1/2 bg-gray-200 rounded-lg p-3 text-sm">
-                        Lorem ipsum dolor sit amet.
-                    </div>
-                </div>
 
-                <div className="min-h-[18%] w-full  flex justify-end items-center">
-                    <div className="h-full w-1/2 bg-sky-400/70 rounded-lg p-3 text-sm">
-                        Lorem ipsum dolor sit amet.
-                    </div>
-                </div>
-                
-            </div>
-            <div className="h-[15%] w-full flex justify-center items-center relative">
-              <input
-                type="text"
-                className="shadow-inner font-medium h-[70%] w-full text-lg pl-5 rounded-md remove-arrow placeholder:font-medium placeholder:text-lg outline-gray-300 outline outline-1 pr-20"
-                placeholder="Enter your message"
-              />
-              <div className="h-[70%] w-[10%] absolute right-0 rounded-e-md flex justify-center items-center">
-                <img src={sendMessage} alt=""  className="h-[60%] cursor-pointer"/>
+
+        {/* Chat Part */}
+        <div className="h-[90%] w-1/2 flex justify-center items-center rounded-2xl shadow-inner mx-8 bg-slate-100 border-b-sky-500 border-b-4 overflow-hidden">
+          {!startChat && (
+            <div className="h-full w-[20rem] flex justify-evenly items-center flex-col">
+              <img src={chat} alt="" className="h-[15rem]" />
+              <div
+                onClick={() => {
+                  setstartChat(true);
+                }}
+              >
+                <LoginButton name="Chat With Us" x="4rem" />
               </div>
             </div>
-          </div>
+          )}
+
+
+
+          {startChat && (
+            <div className="h-full w-full px-5 pt-4">
+              <div
+                ref={messageBoxRef}
+                className="h-[85%] w-full rounded-2xl bg-white outline-gray-300 outline outline-1 p-4 flex flex-col overflow-y-auto overflow-x-hidden gap-3"
+              >
+                {messages.map((message, index) => (
+                  <div key={index}>{message}</div>
+                ))}
+              </div>
+              <div className="h-[15%] w-full flex justify-center items-center relative">
+                <input
+                  ref={inputBox}
+                  type="text"
+                  className="shadow-inner font-medium h-[70%] w-full text-lg pl-5 rounded-md remove-arrow placeholder:font-medium placeholder:text-lg outline-gray-300 outline outline-1 pr-20"
+                  placeholder="Enter your message"
+                />
+                <div className="h-[70%] w-[10%] absolute right-0 rounded-e-md flex justify-center items-center">
+                  <img
+                    src={sendMessageIMG}
+                    alt=""
+                    className="h-[60%] cursor-pointer"
+                    onClick={() => {
+                      if (inputBox.current.value === "END") {
+                        setMessages([])
+                        setstartChat(false);
+                      } else {
+                        if (inputBox.current?.value !== "")
+                          sendMessage(inputBox.current.value);
+                        inputBox.current.value = "";
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import Calculator_ROI from "./Pages/Calculator_ROI";
 import Calculator_CAGR from "./Pages/Calculator_CAGR";
 import Customer from "./Pages/Customer";
 import Loan from "./Pages/Loan";
+import Admin from "./Pages/Admin";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import ContactUS from "./Pages/ContactUS";
@@ -16,7 +17,7 @@ import { useState ,useEffect} from "react";
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname !== "/login";
+  const isLoginPage = (location.pathname !== "/login" && location.pathname !== "/admin");
   const [isLoggedIn, setisLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -36,12 +37,13 @@ function App() {
         <Route path="/loan" element={<Loan />} />
         <Route path="/payments" element={<Payments />} />
         <Route path="/calculator" element={<Calculator />}>
-          <Route path="/calculator/gst" element={<Calculator_GST />} />
+          <Route path="gst" element={<Calculator_GST />} />
           <Route path="roi" element={<Calculator_ROI />} />
           <Route path="cagr" element={<Calculator_CAGR />} />
         </Route>
         <Route path="/support" element={<ContactUS />} />
         <Route path="/customer" element={<Customer />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       {isLoginPage && <Footer />}
     </div>

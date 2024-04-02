@@ -3,12 +3,11 @@ import gst from "../assets/gst.png";
 import roi from "../assets/roi-calc.png";
 import cagr from "../assets/cagr-calc.svg";
 import { useState } from "react";
-import { useNavigate,Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 function Calculator() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const [index, setindex] = useState(0);
-  
 
   const box = (props) => {
     return (
@@ -19,9 +18,9 @@ function Calculator() {
             ? "bg-green-100 outline-2 outline-green-500 outline"
             : "hover:bg-sky-100 hover:outline-2 hover:outline-sky-500 hover:outline"
         }`}
-        onClick={()=>{
-            navigate(props.cal)
-            setindex(props.key)
+        onClick={() => {
+          navigate(props.cal);
+          setindex(props.key);
         }}
       >
         <div className="w-full h-1/2 flex justify-center items-center">
@@ -37,12 +36,14 @@ function Calculator() {
 
   return (
     <div className="h-max min-h-[80vh] w-full  flex flex-col justify-center items-center gap-10">
-      <div className="h-[10vh] w-full flex justify-center items-center font-semibold text-[#154166] text-4xl">Calculators</div>
+      <div className="h-[10vh] w-full flex justify-center items-center font-semibold text-[#154166] text-4xl">
+        Calculators
+      </div>
       <div className="h-[40vh] w-full px-20 ">
         <div className="h-full w-full 0 flex justify-evenly items-center gap-3">
-          {box({ name: "GST", key: 1,img:gst,cal:"gst"})}
-          {box({ name: "ROI", key: 2,img:roi,cal:"roi"})}
-          {box({ name: "CAGR", key: 3, img:cagr,cal:"cagr"})}
+          {box({ name: "GST", key: 1, img: gst, cal: "gst" })}
+          {box({ name: "ROI", key: 2, img: roi, cal: "roi" })}
+          {box({ name: "CAGR", key: 3, img: cagr, cal: "cagr" })}
         </div>
       </div>
       <Outlet />
