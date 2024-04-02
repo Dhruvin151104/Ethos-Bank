@@ -25,7 +25,7 @@ const loginController = expressAsyncHandler((req, res) => {
 const otpController = expressAsyncHandler((req, res) => {
   const { otp, token, email } = req.body;
   const decodedToken = verifyToken(token);
-  console.log(!decodedToken, otp, OTP);
+
   if (!decodedToken || decodedToken.payload !== email) {
     return res.status(400).json("Invalid token or email");
   }
@@ -40,8 +40,8 @@ const otpController = expressAsyncHandler((req, res) => {
 
 const confirmController = expressAsyncHandler(async (req, res) => {
   try {
-    const { email } = req.body;
-
+    const { token } = req.body;
+    const email = verifyToken(token).payload;
     const user = await userModel.findOne({ email: email });
 
     if (!user) {

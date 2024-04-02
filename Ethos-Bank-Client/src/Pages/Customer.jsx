@@ -61,7 +61,7 @@ function Customer() {
             <p>{userDetails.accNo}</p>
             <p>{userDetails.name}</p>
             <p>{userDetails.phoneNo}</p>
-            <p>@{userDetails.email}</p>
+            <p>{userDetails.email}</p>
           </div>
         </div>
         <div className="h-[80%] w-2/5 bg-slate-100 px-2 rounded-2xl font-semibold text-lg flex justify-evenly items-center">

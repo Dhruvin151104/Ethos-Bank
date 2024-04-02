@@ -90,7 +90,7 @@ function Login(props) {
   const handleConfirmation = async () => {
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login/details", { email: email })
+        .post("http://localhost:5174/login/details", {token:JSON.parse(localStorage.getItem('userDetails')).token })
         .then((result) => {
           console.log(result.data);
           if (result.status === 200 && isVerified) {
