@@ -61,7 +61,7 @@ function Login(props) {
         })
         .catch((err) => {
           console.log(err);
-          reject(err);
+          resolve(false);
         });
     });
   };

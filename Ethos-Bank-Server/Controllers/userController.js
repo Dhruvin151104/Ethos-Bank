@@ -17,7 +17,7 @@ const loginController = expressAsyncHandler((req, res) => {
       res.status(200).json({ token: tokenGenerator(email) });
       console.log(`Email sent to user ${user.email}`);
     } else {
-      res.json("No User found in Database");
+      res.status(400).json("No User found in Database");
     }
   });
 });

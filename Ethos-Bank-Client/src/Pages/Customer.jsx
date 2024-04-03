@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import rupee from "../assets/rupee-svg.svg";
+import rupee from "../assets/wallet.png";
 import debitCard from "../assets/debitCard.png";
 import viewDetails from "../assets/viewDetaiils.svg";
 import changePIN from "../assets/profilePIN.svg";
