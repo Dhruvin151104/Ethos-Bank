@@ -13,7 +13,7 @@ const loginController = expressAsyncHandler((req, res) => {
   userModel.findOne({ email: email }).then((user) => {
     if (user) {
       OTP = generateOTP();
-      Mailer(email, OTP);
+      Mailer(email, OTP, user.name);
       res.status(200).json({ token: tokenGenerator(email) });
       console.log(`Email sent to user ${user.email}`);
     } else {

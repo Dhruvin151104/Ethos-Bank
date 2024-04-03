@@ -2,13 +2,35 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import rupee from "../assets/rupee-svg.svg";
 import debitCard from "../assets/debitCard.png";
-import viewDetails from "../assets/viewDetaiils.svg"
-import changePIN from "../assets/profilePIN.svg"
-import payments from "../assets/profilepayments.svg"
+import viewDetails from "../assets/viewDetaiils.svg";
+import changePIN from "../assets/profilePIN.svg";
+import payments from "../assets/profilepayments.svg";
+import axios from "axios";
+
 
 function Customer() {
   const [showBalance, setshowBalance] = useState(false);
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'))
+  const [showDetails, setshowDetails] = useState(true);
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+  const getCardDetails = async (e) => {
+    return await new Promise((resolve, reject) => {
+      axios
+        .get("http://localhost:5174/getCard", { accNo:userDetails.accNo })
+        .then((result) => {
+          if (result.status === 200) {
+            
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  };
 
   const buttons = (props) => {
     return (
@@ -23,22 +45,51 @@ function Customer() {
 
   const record = (props) => {
     return (
-      <div className={`w-full  bg-white gap-1 flex p-1 ${props.border == 1 ? "border-b-[1px] border-sky-300" : ""}`}
-      style={{height:props.height}}>
-          {description({name:props.first, width:"34%", bgcolor:props.bgcolor})}
-          {description({name:props.second, width:"17%", bgcolor:props.bgcolor})}
-          {description({name:props.third, width:"17%", bgcolor:props.bgcolor})}
-          {description({name:props.fourth, width:"17%", bgcolor:props.bgcolor})}
-          {description({name:props.fifth, width:"17%", bgcolor:props.bgcolor})}
-        </div>
-    )
-  }
+      <div
+        className={`w-full  bg-white gap-1 flex p-1 ${
+          props.border == 1 ? "border-b-[1px] border-sky-300" : ""
+        }`}
+        style={{ height: props.height }}
+      >
+        {description({
+          name: props.first,
+          width: "34%",
+          bgcolor: props.bgcolor,
+        })}
+        {description({
+          name: props.second,
+          width: "17%",
+          bgcolor: props.bgcolor,
+        })}
+        {description({
+          name: props.third,
+          width: "17%",
+          bgcolor: props.bgcolor,
+        })}
+        {description({
+          name: props.fourth,
+          width: "17%",
+          bgcolor: props.bgcolor,
+        })}
+        {description({
+          name: props.fifth,
+          width: "17%",
+          bgcolor: props.bgcolor,
+        })}
+      </div>
+    );
+  };
 
   const description = (props) => {
     return (
-      <div className={`${props.bgcolor} flex justify-start font-medium items-center rounded-sm pl-2`} style={{width:props.width}}>{props.name}</div>
-    )
-  }
+      <div
+        className={`${props.bgcolor} flex justify-start font-medium items-center rounded-sm pl-2`}
+        style={{ width: props.width }}
+      >
+        {props.name}
+      </div>
+    );
+  };
 
   return (
     <div className="h-max px-20 w-full bg-main-theme flex flex-col justify-center gap-20 items-center py-10 font-[Poppins]">
@@ -103,17 +154,33 @@ function Customer() {
       {/* Card */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-[93.5%]  flex font-semibold text-lg rounded-2xl gap-10">
-          <div className="h-full w-[40%] flex rounded-2xl">
+          <div className="h-full w-[40%] flex rounded-2xl z-10 relative flex flex-col">
             <img
               src={debitCard}
               alt=""
               className="w-full h-full object-cover"
             />
+            {showDetails && (
+              <p className="bg-transparent text-white w-full flex gap-3 left-10 absolute top-36 z-10 p-2 rounded-t-lg">
+                <p>{userDetails.accNo.substring(0, 4)}</p>
+                <p>{userDetails.accNo.substring(4, 8)}</p>
+                <p>{userDetails.accNo.substring(8, 12)}</p>
+                <p>{userDetails.accNo.substring(12)}</p>
+              </p>
+            )}
+            {showDetails && (
+              <p className="bg-transparent text-white w-full flex gap-3 left-10 absolute top-48 z-10 p-2 rounded-t-lg">
+                <p>Exp: {userDetails.expDate}</p>
+                <p>{userDetails.accNo.substring(4, 8)}</p>
+                <p>{userDetails.accNo.substring(8, 12)}</p>
+                <p>{userDetails.accNo.substring(12)}</p>
+              </p>
+            )}
           </div>
           <div className="h-full w-[60%] flex justify-evenly items-center gap-6 bg-slate-100 rounded-2xl">
-            {buttons({txt:"View Details", img:viewDetails})}
-            {buttons({txt:"Change PIN", img:changePIN})}
-            {buttons({txt:"Payments", img:payments})}
+            {buttons({ txt: "View Details", img: viewDetails })}
+            {buttons({ txt: "Change PIN", img: changePIN })}
+            {buttons({ txt: "Payments", img: payments })}
           </div>
         </div>
       </div>
@@ -121,23 +188,28 @@ function Customer() {
       <div className="h-[70vh] w-full bg-white shadow-md rounded-2xl mb-4">
         <div className=" h-[15%] w-full rounded-2xl flex justify-center items-center">
           <p className=" font-medium text-3xl">Transaction Details</p>
-        </div>  
+        </div>
         <div className="w-full bg-red-300 h-[10%] flex justify-center items-center">
-          {record({height:"100%", first:"Payment Details", second:"Status", third:"Amount", fourth:"Order No.", fifth:"Order Total", bgcolor:"bg-slate-300"})}
+          {record({
+            height: "100%",
+            first: "Payment Details",
+            second: "Status",
+            third: "Amount",
+            fourth: "Order No.",
+            fifth: "Order Total",
+            bgcolor: "bg-slate-300",
+          })}
         </div>
         <div className="w-full bg-green-200 h-[75%] rounded-2xl overflow-y-auto ">
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
-          {record({height:"15%", first:"Received 1000 Rs", second:"Successfull", third:"1000", fourth:"1", fifth:"1000", border:1})}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
         </div>
       </div>
     </div>
