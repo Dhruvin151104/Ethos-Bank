@@ -189,7 +189,7 @@ function Customer() {
         <div className=" h-[15%] w-full rounded-2xl flex justify-center items-center">
           <p className=" font-medium text-3xl">Transaction Details</p>
         </div>
-        <div className="w-full bg-red-300 h-[10%] flex justify-center items-center">
+        <div className="w-full  h-[10%] flex justify-center items-center">
           {record({
             height: "100%",
             first: "Payment Details",
@@ -200,16 +200,19 @@ function Customer() {
             bgcolor: "bg-slate-300",
           })}
         </div>
-        <div className="w-full bg-green-200 h-[75%] rounded-2xl overflow-y-auto ">
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
+        <div className="w-full  h-[75%] rounded-2xl overflow-y-auto ">
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
         </div>
       </div>
     </div>

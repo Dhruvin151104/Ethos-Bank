@@ -4,6 +4,7 @@ import calc_svg from "../assets/calcSVG.svg";
 import payment_svg from "../assets/paymentSVG.svg";
 import loan_svg from "../assets/loanSVG.svg";
 import News from "../components/News";
+import { Link } from "react-router-dom";
 
 function Home() {
   const element = (props) => {
@@ -25,16 +26,16 @@ function Home() {
           <p className="text-md text-gray-500">
             {props.text}
           </p>
-          <a
+          <Link
             style={{
               "--bg-color": props.bgcolor,
               "--outline-color": props.color,
             }}
-            href=""
+            to={props.link}
             className="text-md hover:text-[var(--outline-color)] duration-200 ease-in-out font-semibold cursor-pointer"
           >
             Know More &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -85,6 +86,7 @@ function Home() {
                   color: "#4D4DFF",
                   bgcolor: "#EAEAFD",
                   text:"Unlock your dreams with flexible loans tailored just for you.",
+                  link:"/loan"
                 })}
               </div>
               <div className="h-full w-full flex items-center justify-center">
@@ -96,6 +98,7 @@ function Home() {
                   color: "#84cc16",
                   bgcolor: "#F7FEE7",
                   text:"Empower your finances with our calculators: GST, CAGR, ROI, and more.",
+                  link:"/calculator"
                 })}
               </div>
               <div className="h-full w-full col-start-2 row-span-2 row-start-1 flex items-center justify-center">
@@ -109,12 +112,12 @@ function Home() {
                     Simplify transactions with our secure payment gateway. Fast, reliable, and hassle-free banking experience awaits.
                     </p>
                   </div>
-                  <a
-                    href=""
+                  <Link
+                    to="/payments"
                     className="text-xl hover:text-teal-500 duration-200 ease-in-out font-semibold cursor-pointer"
                   >
                     Know More &rarr;
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
