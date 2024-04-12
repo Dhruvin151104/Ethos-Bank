@@ -7,18 +7,20 @@ import changePIN from "../assets/profilePIN.svg";
 import payments from "../assets/profilepayments.svg";
 import axios from "axios";
 
-
 function Customer() {
   const [showBalance, setshowBalance] = useState(false);
-  const [showDetails, setshowDetails] = useState(true);
+  const [cardDetails, setcardDetails] = useState({cardNo:"XXXXXXXXXXXXXXXX", expDate:'MM/YY', cvv:'XXX'});
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const getCardDetails = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .get("http://localhost:5174/getCard", { accNo:userDetails.accNo })
+        .get("http://localhost:5174/customer/getCardDetails", {
+          params: { accNo: userDetails.accNo },
+        })
         .then((result) => {
           if (result.status === 200) {
-            console.log(result.data);
+            setcardDetails(cardDetails.cvv == 'XXX' ? result.data : {cardNo:"XXXXXXXXXXXXXXXX", expDate:'MM/YY', cvv:'XXX'});
+            console.log(cardDetails);
             resolve(true);
           } else {
             resolve(false);
@@ -34,7 +36,10 @@ function Customer() {
   const buttons = (props) => {
     return (
       <div className=" flex flex-col h-full justify-center items-center gap-6 w-[30%]">
-        <button className="text-white text-lg rounded-full bg-sky-600 hover:bg-sky-400 duration-300 ease-linear font-semibold w-[6.5rem] h-[6.5rem] flex items-center justify-center">
+        <button
+          onClick={props.onClick}
+          className="text-white text-lg rounded-full bg-sky-600 hover:bg-sky-400 duration-300 ease-linear font-semibold w-[6.5rem] h-[6.5rem] flex items-center justify-center"
+        >
           <img src={props.img} alt="" className=" h-1/2" />
         </button>
         <p>{props.txt}</p>
@@ -153,31 +158,43 @@ function Customer() {
       {/* Card */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-[93.5%]  flex font-semibold text-lg rounded-2xl gap-10">
-          <div className="h-full w-[40%] flex rounded-2xl z-10 relative flex-col">
+          <div className=" font-mono h-full w-[40%] flex rounded-2xl z-10 relative flex-col">
             <img
               src={debitCard}
               alt=""
               className="w-full h-full object-cover"
             />
-            {showDetails && (
-              <p className="bg-transparent text-white w-full flex gap-3 left-10 absolute top-36 z-10 p-2 rounded-t-lg">
-                <p>{userDetails.accNo.substring(0, 4)}</p>
-                <p>{userDetails.accNo.substring(4, 8)}</p>
-                <p>{userDetails.accNo.substring(8, 12)}</p>
-                <p>{userDetails.accNo.substring(12)}</p>
+            <div className="bg-transparent text-white w-full flex gap-8 left-[3rem] absolute top-[3.5rem] z-10 rounded-t-lg">
+              <p> 
+                {userDetails.gender === "Male" ? "MR " : "MS "}
+                {userDetails.name.split(" ")[0].toUpperCase()}
               </p>
-            )}
-            {showDetails && (
-              <p className="bg-transparent text-white w-full flex gap-3 left-10 absolute top-48 z-10 p-2 rounded-t-lg">
-                <p>Exp: {userDetails.expDate}</p>
-                <p>{userDetails.accNo.substring(4, 8)}</p>
-                <p>{userDetails.accNo.substring(8, 12)}</p>
-                <p>{userDetails.accNo.substring(12)}</p>
-              </p>
-            )}
+            </div>
+            <div className="bg-transparent text-white text-3xl w-full flex gap-8 left-[16.6rem] absolute top-[3.5rem] z-10 rounded-t-lg font-[Poppins]">
+              <p><span className="text-cyan-400">E</span>THOS</p>
+            </div>
+              <div className="bg-transparent text-white w-full flex left-[3rem] absolute top-[9.5rem] z-10 rounded-t-lg gap-7">
+                {cardDetails.cardNo.match(/.{1,4}/g).map((group, index) => {
+                  return (
+                    <div key={index} className="flex gap-1">
+                      {group.split("").map((element, index) => {
+                        return <p key={index}>{element}</p>;
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="bg-transparent text-white w-full flex gap-8 left-[3rem] absolute top-[13rem] z-10 rounded-t-lg">
+                <p>EXP:{cardDetails.expDate}</p>
+                <p>CVV:{cardDetails.cvv}</p>
+              </div>
           </div>
           <div className="h-full w-[60%] flex justify-evenly items-center gap-6 bg-slate-100 rounded-2xl">
-            {buttons({ txt: "View Details", img: viewDetails })}
+            {buttons({
+              txt: `${cardDetails.cvv == 'XXX' ? "View Details" : "Hide Details"}`,
+              img: viewDetails,
+              onClick: getCardDetails,
+            })}
             {buttons({ txt: "Change PIN", img: changePIN })}
             {buttons({ txt: "Payments", img: payments })}
           </div>
@@ -200,18 +217,114 @@ function Customer() {
           })}
         </div>
         <div className="w-full  h-[75%] rounded-2xl overflow-y-auto ">
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
-          {record({height: "15%",first: "Received 1000 Rs",second: "Successfull",third: "1000",fourth: "1",fifth: "1000",border: 1,})}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
+          {record({
+            height: "15%",
+            first: "Received 1000 Rs",
+            second: "Successfull",
+            third: "1000",
+            fourth: "1",
+            fifth: "1000",
+            border: 1,
+          })}
         </div>
       </div>
     </div>

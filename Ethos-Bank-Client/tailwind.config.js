@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily:{
+      'mono':"Space Mono"
+    },
     extend: {
       backgroundColor:{
         'main-theme':"#F4F8FF"

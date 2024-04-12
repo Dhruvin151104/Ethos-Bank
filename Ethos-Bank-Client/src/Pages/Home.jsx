@@ -44,13 +44,12 @@ function Home() {
   return (
     <div className="font-[Poppins] bg-main-theme">
       <div className=" h-[90vh] w-full flex justify-center items-center px-20">
-        <div className=" h-3/5 w-[45%] flex bg-transparent justify-center items-start flex-col gap-10">
-          <div className="text-black text-4xl font-medium">
-            <p className="mb-2 "><span className=" font-semibold text-blue-600">Supercharge</span> your Banking</p>
-            <p>with <span className="">Ethos</span>.</p>
+        <div className=" h-3/5 w-[45%] flex bg-transparent justify-center items-start flex-col gap-20">
+          <div className="text-black text-2xl font-medium pr-16">
+            <p><span className="font-semibold text-blue-600 text-4xl">Supercharge</span> <span className="text-4xl">with Ethos,</span><div className=" font-light text-base mt-3">where every transaction is infused with efficiency, integrity, and personalized service.  Elevate your expectations and embrace a new standard of banking excellence with Ethos by your side.</div></p>
           </div>
           <div>
-            <p className=" text-black text-2xl font-light mb-5">
+            <p className=" text-black text-3xl font-medium mb-5">
               Our services got you covered.
             </p>
           </div>

@@ -29,7 +29,7 @@ const newCard = expressAsyncHandler(async (req, res) => {
 })
 
 const getCardDetails = expressAsyncHandler(async (req, res) => {
-    const { accNo } = req.body;
+    const accNo= req.query.accNo;
     const card = await cardModel.findOne({ accNo: accNo })
     if (card) {
         const details = {
@@ -37,7 +37,6 @@ const getCardDetails = expressAsyncHandler(async (req, res) => {
             expDate: card.expDate,
             cvv: card.cvv
         }
-        console.log(details);
         res.status(200).json(details);
     } else {
         res.status(400).json("Card does not exist for this user");
@@ -46,7 +45,7 @@ const getCardDetails = expressAsyncHandler(async (req, res) => {
 
 const changePIN = expressAsyncHandler(async (req, res) => {
     const { accNo, oldPIN, newPIN } = req.body;
-
+    
 })
 
 export { newCard, getCardDetails };
