@@ -12,14 +12,13 @@ function Customer() {
   const [showBalance, setshowBalance] = useState(false);
   const [showDetails, setshowDetails] = useState(true);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-
   const getCardDetails = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
         .get("http://localhost:5174/getCard", { accNo:userDetails.accNo })
         .then((result) => {
           if (result.status === 200) {
-            
+            console.log(result.data);
             resolve(true);
           } else {
             resolve(false);
@@ -154,7 +153,7 @@ function Customer() {
       {/* Card */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-[93.5%]  flex font-semibold text-lg rounded-2xl gap-10">
-          <div className="h-full w-[40%] flex rounded-2xl z-10 relative flex flex-col">
+          <div className="h-full w-[40%] flex rounded-2xl z-10 relative flex-col">
             <img
               src={debitCard}
               alt=""

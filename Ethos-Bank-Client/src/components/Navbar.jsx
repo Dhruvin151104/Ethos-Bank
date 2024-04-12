@@ -20,7 +20,7 @@ function Navbar(props) {
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        <Link to="/customer" className=" relative h-full">
+        <Link to="/customer" className=" relative h-full ">
           {children}
         </Link>
         <AnimatePresence>
