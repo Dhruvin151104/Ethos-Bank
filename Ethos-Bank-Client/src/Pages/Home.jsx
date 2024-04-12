@@ -1,5 +1,5 @@
 import React from "react";
-import home from "../assets/home.png";
+import home from "../assets/ethos_home_page.png";
 import calc_svg from "../assets/calcSVG.svg";
 import payment_svg from "../assets/paymentSVG.svg";
 import loan_svg from "../assets/loanSVG.svg";

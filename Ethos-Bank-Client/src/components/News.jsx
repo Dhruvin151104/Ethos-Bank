@@ -31,7 +31,7 @@ function News() {
           </div>
           <div className="h-[45%] w-full py-2 px-5 overflow-hidden flex flex-col items-center gap-2">
             <p className=" text-base font-medium">{props.title}</p>
-            <p className="text-sm font-light">{props.description}</p>
+            <p className="text-sm font-light line-clamp-4">{props.description}</p>
           </div>
           <div className="h-[15%] w-full px-5 text-md font-medium py-2">
             <a
