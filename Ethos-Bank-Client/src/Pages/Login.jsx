@@ -53,6 +53,7 @@ function Login(props) {
         .then((result) => {
           console.log(result.data);
           if (result.status === 200) {
+            localStorage.setItem("userDetails", JSON.stringify(result.data));
             resolve(true);
           } else {
             resolve(false);
