@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import rupee from "../assets/wallet.png";
 import debitCard from "../assets/debitCard.png";
 import viewDetails from "../assets/viewDetaiils.svg";
@@ -8,9 +8,19 @@ import payments from "../assets/profilepayments.svg";
 import axios from "axios";
 
 function Customer() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [])
+  
+  const navigate = useNavigate();
   const [showBalance, setshowBalance] = useState(false);
   const [cardDetails, setcardDetails] = useState({cardNo:"XXXXXXXXXXXXXXXX", expDate:'MM/YY', cvv:'XXX'});
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+  const navigateToPayment = ()=>{
+    navigate('/payments')
+  }
+
   const getCardDetails = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
@@ -97,6 +107,8 @@ function Customer() {
 
   return (
     <div className="h-max px-20 w-full bg-main-theme flex flex-col justify-center gap-20 items-center py-10 font-[Poppins]">
+      
+      
       {/* Profile */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-1/2 bg-slate-100 flex pl-10 font-semibold text-lg rounded-2xl">
@@ -167,19 +179,19 @@ function Customer() {
               alt=""
               className="w-full h-full object-cover"
             />
-            <div className="bg-transparent text-white w-full flex gap-8 left-[3rem] absolute top-[3.5rem] z-10 rounded-t-lg">
+            <div className="bg-transparent text-white w-full flex gap-8 left-[3vw] absolute top-[3.5vw] z-10 rounded-t-lg">
               <p> 
                 {userDetails.gender === "Male" ? "MR " : "MS "}
                 {userDetails.name.split(" ")[0].toUpperCase()}
               </p>
             </div>
-            <div className="bg-transparent text-white text-3xl w-full flex gap-8 left-[16.6rem] absolute top-[3.5rem] z-10 rounded-t-lg font-[Poppins]">
+            <div className="bg-transparent text-white text-[3vw] w-full flex gap-8 left-[19vw] absolute top-[3.5rem] z-10 rounded-t-lg font-[Poppins]">
               <p><span className="text-cyan-400">E</span>THOS</p>
             </div>
-              <div className="bg-transparent text-white w-full flex left-[3rem] absolute top-[9.5rem] z-10 rounded-t-lg gap-7">
+              <div className="bg-transparent text-white text-[1.5vw] w-full flex justify-center items-center absolute top-[11.5vw] z-10 rounded-t-lg gap-7">
                 {cardDetails.cardNo.match(/.{1,4}/g).map((group, index) => {
                   return (
-                    <div key={index} className="flex gap-1">
+                    <div key={index} className="flex gap-[0.3vw]">
                       {group.split("").map((element, index) => {
                         return <p key={index}>{element}</p>;
                       })}
@@ -187,7 +199,7 @@ function Customer() {
                   );
                 })}
               </div>
-              <div className="bg-transparent text-white w-full flex gap-8 left-[3rem] absolute top-[13rem] z-10 rounded-t-lg">
+              <div className="bg-transparent text-white w-full flex gap-8 left-[3.5vw] absolute top-[16vw] z-10 rounded-t-lg">
                 <p>EXP:{cardDetails.expDate}</p>
                 <p>CVV:{cardDetails.cvv}</p>
               </div>
@@ -199,10 +211,13 @@ function Customer() {
               onClick: getCardDetails,
             })}
             {buttons({ txt: "Change PIN", img: changePIN })}
-            {buttons({ txt: "Payments", img: payments })}
+            {buttons({ txt: "Payments", img: payments ,onClick: navigateToPayment})}
           </div>
         </div>
       </div>
+
+
+
       {/* Transaction */}
       <div className="h-[70vh] w-full bg-white shadow-md rounded-2xl mb-4">
         <div className=" h-[15%] w-full rounded-2xl flex justify-center items-center">
@@ -220,105 +235,6 @@ function Customer() {
           })}
         </div>
         <div className="w-full  h-[75%] rounded-2xl overflow-y-auto ">
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
-          {record({
-            height: "15%",
-            first: "Received 1000 Rs",
-            second: "Successfull",
-            third: "1000",
-            fourth: "1",
-            fifth: "1000",
-            border: 1,
-          })}
           {record({
             height: "15%",
             first: "Received 1000 Rs",

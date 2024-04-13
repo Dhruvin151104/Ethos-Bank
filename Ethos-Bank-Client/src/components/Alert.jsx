@@ -24,7 +24,7 @@ function Alert(props) {
               <div className="bg-white w-16  h-16 mb-2 rounded-full text-4xl text-sky-600 grid place-items-center mx-auto">
                 <FiAlertCircle />
               </div>
-              <div className="text-3xl h-14 font-semibold flex justify-center items-center mb-2">
+              <div className="text-3xl  font-semibold flex justify-center items-center mb-2">
                 {props.title}
               </div>
               <div className="text-center mb-6 text-lg px-5">

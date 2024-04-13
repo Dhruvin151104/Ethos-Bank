@@ -2,10 +2,14 @@ import React from "react";
 import gst from "../assets/gst.png";
 import roi from "../assets/roi-calc.png";
 import cagr from "../assets/cagr-calc.svg";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
 function Calculator() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [])
+  
   const navigate = useNavigate();
   const [index, setindex] = useState(0);
 
@@ -36,7 +40,7 @@ function Calculator() {
 
   return (
     <div className="h-max min-h-[80vh] w-full  flex flex-col justify-center items-center gap-10">
-      <div className="h-[10vh] w-full flex justify-center items-center font-semibold text-[#154166] text-4xl">
+      <div className="h-[10vh] w-full flex justify-center items-center font-semibold text-[#154166] text-4xl mt-10">
         Calculators
       </div>
       <div className="h-[40vh] w-full px-20 ">

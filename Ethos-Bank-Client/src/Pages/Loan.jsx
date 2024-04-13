@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import loanIMG from "../assets/loan.png";
 import LoginButton from "../components/LoginButton";
 import Input from "../components/Input";
@@ -8,6 +8,10 @@ import loanCalc from "../assets/loanCalc.png";
 import Circular_Progress from "../components/Circular_Progress";
 
 function Loan() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [])
+
   const [loanAmount, setloanAmount] = useState("");
   const [tenure, settenure] = useState("");
   const [rateOfInterest, setrateOfInterest] = useState("");

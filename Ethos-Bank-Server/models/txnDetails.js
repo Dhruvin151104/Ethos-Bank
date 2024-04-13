@@ -5,7 +5,9 @@ const txnSchema = new mongoose.Schema({
     to:{type:String, required:true},
     senderAccNo:{type:String, required:true},
     receiverAccNo:{type:String, required:true},
-    amount:{type:Number, required:true}
+    amount:{type:Number, required:true},
+    status:{type:Boolean, required:true},
+    timestamp:{type:Date, required:true}
 });
 
 const txnModel = mongoose.model("txnhistories", txnSchema);
