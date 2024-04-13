@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 
 const makeTxn = expressAsyncHandler(async (req, res) => {
     const {senderAC, receiverAC, amount, IFSC} = req.body;
-    const status = true;
+    var status = true;
     if(!senderAC || !receiverAC || !amount || !IFSC){
         status = false;
         res.status(400).json("Invalid transaction");
@@ -16,7 +16,7 @@ const makeTxn = expressAsyncHandler(async (req, res) => {
     const receiverData = await userModel.findOne({accNo:receiverAC});
     const senderData = await userModel.findOne({accNo:senderAC});
     if(receiverData && senderData){
-        if(senderData.balance < amount){
+        if(senderData.balance < amount && status){
             status = false;
             session.abortTransaction();
             session.endSession();
@@ -33,31 +33,32 @@ const makeTxn = expressAsyncHandler(async (req, res) => {
                 {$inc: {balance: amount}},
                 {new: true}
             );
-            if(updateReceiver && updateSender){
+            if(updateReceiver && updateSender && status){
                 session.commitTransaction();
                 session.endSession();
-            }else{
+            }else if(status){
                 status = false;
                 session.abortTransaction();
                 session.endSession();
                 res.status(400).json("Invalid transaction");
             }
         } catch (error) {
-            console.log(error);
+            console.log("Error Occured");
             session.abortTransaction();
             session.endSession();
             res.status(500).json('Server Error');
         }
-        res.status(200).json("ok");
+        res.status(200).json("Transaction Completed");
     }else{
         status = false;
         session.abortTransaction();
         session.endSession();
         res.status(400).json("Invalid transaction");
     }
+    var receiverName = (receiverData ? receiverData.name : 'NULL');
     const txn = txnModel.create({
         from:senderData.name,
-        to:receiverData.name,
+        to:receiverName,
         senderAccNo:senderAC,
         receiverAccNo:receiverAC,
         amount:amount,
@@ -65,7 +66,7 @@ const makeTxn = expressAsyncHandler(async (req, res) => {
         timestamp:Date.now()
     });
     if(txn){
-        console.log(`Transaction of Rs. ${amount} from ${senderData.name} to ${receiverData.name}`);
+        console.log(`${status == false ? "Unsuccessfull" : "Successfull"} Transaction of Rs. ${amount} from ${senderData.name} to ${receiverName}`);
     }else{
         console.log("An Error Occured");
     }

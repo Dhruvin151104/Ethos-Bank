@@ -225,7 +225,7 @@ function Loan() {
                     setshowLoanApplication(false);
                   }}
                 >
-                  LOG IN
+                  APPLY
                 </button>
               </div>
             </div>

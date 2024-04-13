@@ -1,8 +1,10 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState, useRef} from 'react'
 import neft from "../assets/neft.png"
 import Input from "../components/Input"
 import { useNavigate } from "react-router-dom";
 import { FcMoneyTransfer } from "react-icons/fc";
+import axios from 'axios';
+import Alert from '../components/Alert';
 
 function Payments() {
   useEffect(() => {
@@ -11,10 +13,27 @@ function Payments() {
   const [accNo, setaccNo] = useState("")
   const [IFSC, setIFSC] = useState("")
   const [amount, setamount] = useState("")
+  const [showAlert, setshowAlert] = useState(false)
+  const alertMessage = useRef({title:"",message:""})
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'))
   const navigate = useNavigate();
+
+  const makeTxn = async () => {
+      await axios.post('http://localhost:5174/maketxn', {senderAC:userDetails.accNo, receiverAC:accNo, IFSC:IFSC, amount:amount})
+      .then(result => {
+        alertMessage.current={title:"Alert!",message:result.data}
+        setshowAlert(()=>true);
+      })
+      .catch((error)=>{
+        console.log(error)
+        alertMessage.current={title:"Alert!",message:error.response.data}
+        setshowAlert(()=>true);
+      })
+  }
 
   return (
     <div className='h-[100vh] w-full font-[Poppins] flex items-center justify-center px-20 relative'>
+      <Alert title={alertMessage.current.title} message={alertMessage.current.message} setshow={setshowAlert} show={showAlert}/>
       <FcMoneyTransfer className="z-0 text-[400px] absolute -right-[10rem] opacity-30 rotate-[15deg]"/>
       <div className='h-4/5 w-[35%]  flex justify-center items-center'>
         <img src={neft} alt="" className="w-[75%]"/>
@@ -24,14 +43,14 @@ function Payments() {
         type="text"
         settext={setaccNo}
         text={accNo}
-        placeholder="₹ 25,000"
+        placeholder="EB123XXXX"
         heading="Enter account number"
       />
       <Input
         type="text"
         settext={setIFSC}
         text={IFSC}
-        placeholder="₹ 25,000"
+        placeholder="1223"
         heading="Enter IFSC Code"
       />
       <Input
@@ -47,9 +66,7 @@ function Payments() {
           navigate(-1)
         }}>CANCEL</button>
 
-        <button className="py-4 rounded-lg shadow-inner text-lg font-semibold w-[40%] bg-gray-200/70 hover:bg-blue-600 hover:text-white duration-200 ease-linear" onClick={()=>{
-          alert("kaam karne")
-        }}>MAKE PAYMENT</button>
+        <button className="py-4 rounded-lg shadow-inner text-lg font-semibold w-[40%] bg-gray-200/70 hover:bg-blue-600 hover:text-white duration-200 ease-linear" onClick={makeTxn}>MAKE PAYMENT</button>
       </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ function Input(props) {
         className="text-[#154166] shadow-md font-semibold h-[7vh] w-[80%] text-xl pl-5 font-[Poppins] rounded-md remove-arrow focus:outline-sky-600 outline-8 placeholder:font-medium placeholder:text-xl"
         placeholder={props.placeholder}
         value={props.text}
+        min="0"
       />
     </div>
   );

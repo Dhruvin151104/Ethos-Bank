@@ -62,7 +62,7 @@ const confirmController = expressAsyncHandler(async (req, res) => {
 
     res.status(200).json(customerDetail);
   } catch (error) {
-    console.error("Error in confirmController:", error);
+    console.error("Error in confirmController");
     res.status(500).json({ message: "Internal server error" });
   }
 });
