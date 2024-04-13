@@ -155,6 +155,9 @@ function Customer() {
           </div>
         </div>
       </div>
+
+
+      
       {/* Card */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-[93.5%]  flex font-semibold text-lg rounded-2xl gap-10">

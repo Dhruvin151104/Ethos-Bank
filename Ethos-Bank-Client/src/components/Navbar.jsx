@@ -46,7 +46,7 @@ function Navbar(props) {
     return (
       <div className=" h-[8vh] w-[10vw] bg-transparent flex justify-center items-center">
         <button
-          className="text-white text-sm rounded-xl bg-red-600 hover:bg-red-400 duration-300 ease-linear font-semibold w-[60%] h-[60%] flex items-center justify-center"
+          className="text-white text-md rounded-xl bg-red-600 hover:bg-red-400 duration-300 ease-linear font-semibold px-4 py-1 flex items-center justify-center"
           onClick={e => {
             e.stopPropagation();
             logOut();

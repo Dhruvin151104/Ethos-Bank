@@ -1,9 +1,10 @@
 import React from "react";
+import Alert from "../components/Alert";
 import loginIMG from "../assets/loginIMG.png";
 import otpIMG from "../assets/otp.png";
 import verifyIMG from "../assets/verify.png";
 import Inputsingle from "../components/Inputsingle";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -11,6 +12,8 @@ function Login(props) {
   const navigate = useNavigate();
   const [index, setindex] = useState(1);
   const [email, setemail] = useState("");
+  const [showAlert, setshowAlert] = useState(false)
+  const alertMessage = useRef({title:"",message:""})
   const [otp, setotp] = useState({});
   const [isVerified, setisVerified] = useState(false);
   const [focusIndex, setfocusIndex] = useState(0);
@@ -110,6 +113,7 @@ function Login(props) {
 
   return (
     <div className="h-[100vh] w-[100vw] bg-main-theme  font-[Poppins] justify-center items-center flex">
+      <Alert title={alertMessage.current.title} message={alertMessage.current.message} setshow={setshowAlert} show={showAlert}/>
       <div className="h-[75%] w-[65%] bg-white rounded-xl shadow-2xl flex overflow-hidden">
         {/* Scroll Part */}
         <div className="h-full w-[20%] bg-gradient-to-r from-sky-500 to-blue-900 flex items-center justify-center gap-4">
@@ -195,9 +199,8 @@ function Login(props) {
                         if (success) {
                           nextSlide();
                         } else {
-                          alert(
-                            "No user exists with the entered email, Enter a valid email"
-                          );
+                          alertMessage.current={title:"Alert!",message:"No user exists with the entered email, Enter a valid email"}
+                          setshowAlert(()=>true);
                         }
                       });
                       console.log(JSON.stringify({ email: email }));
@@ -263,7 +266,8 @@ function Login(props) {
                         if (success) {
                           nextSlide();
                         } else {
-                          alert("Invalid OTP");
+                          alertMessage.current={title:"Alert!",message:"Invalid OTP"}
+                          setshowAlert(()=>true);
                         }
                       });
                       let OTP = Object.values(otp).join("");
@@ -310,7 +314,8 @@ function Login(props) {
                           navigate(-1);
                         }
                         else{
-                          alert("Some error occured . Please try again later.")
+                          alertMessage.current={title:"OOPS!",message:"Some error occured . Please try again later."}
+                          setshowAlert(()=>true);
                         }
                       })
                     }}
