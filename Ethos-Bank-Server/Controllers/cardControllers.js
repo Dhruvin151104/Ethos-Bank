@@ -43,9 +43,4 @@ const getCardDetails = expressAsyncHandler(async (req, res) => {
     }
 })
 
-const changePIN = expressAsyncHandler(async (req, res) => {
-    const { accNo, oldPIN, newPIN } = req.body;
-    
-})
-
 export { newCard, getCardDetails };

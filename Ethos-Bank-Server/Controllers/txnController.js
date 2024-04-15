@@ -72,4 +72,25 @@ const makeTxn = expressAsyncHandler(async (req, res) => {
     }
 })
 
-export {makeTxn};
+const txnDetails = expressAsyncHandler(async (req, res) => {
+    try {
+        const accNo = req.query.accNo;
+
+        const sentTxns = await txnModel.find({ senderAccNo: accNo });
+        
+        const receivedTxns = await txnModel.find({ receiverAccNo: accNo });
+        
+        const allTxns = [...sentTxns, ...receivedTxns];
+        
+        if (allTxns.length === 0) {
+            return res.status(404).json({ message: "No transactions found for the specified account number." });
+        }
+
+        res.status(200).json(allTxns);
+    } catch (err) {
+        console.error("Error fetching transaction details:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+export {makeTxn, txnDetails};
