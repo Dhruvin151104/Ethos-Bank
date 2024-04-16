@@ -1,5 +1,5 @@
 import express from "express";
-import { loginController,otpController, confirmController, signupController } from "../Controllers/userController.js";
+import { loginController,otpController, confirmController, signupController, getBalance } from "../Controllers/userController.js";
 import { newCard, getCardDetails } from "../Controllers/cardControllers.js";
 import { makeTxn, txnDetails } from "../Controllers/txnController.js";
 
@@ -16,4 +16,6 @@ Router.get("/customer/getCardDetails", getCardDetails);
 
 Router.post("/maketxn", makeTxn);
 Router.get('/txndetails',txnDetails);
+
+Router.get('/balance', getBalance);
 export default Router;

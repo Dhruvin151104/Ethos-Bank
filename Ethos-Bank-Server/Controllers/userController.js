@@ -95,4 +95,17 @@ const signupController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export { loginController, otpController, confirmController, signupController };
+const getBalance = expressAsyncHandler(async (req, res) => {
+  try {
+    const accNo = req.query.accNo
+    const user = await userModel.findOne({ accNo: accNo });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user.balance);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
+
+export { loginController, otpController, confirmController, signupController, getBalance };

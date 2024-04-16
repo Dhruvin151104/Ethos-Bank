@@ -8,6 +8,7 @@ import payments from "../assets/profilepayments.svg";
 import axios from "axios";
 
 function Customer() {
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     getTxnDetails();
@@ -15,13 +16,14 @@ function Customer() {
 
   const navigate = useNavigate();
   const [showBalance, setshowBalance] = useState(false);
+  const [balance, setBalance] = useState('Loading..');
   const [txnDetails, setTxnDetails] = useState([]);
   const [cardDetails, setcardDetails] = useState({
     cardNo: "XXXXXXXXXXXXXXXX",
     expDate: "MM/YY",
     cvv: "XXX",
   });
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
   const navigateToPayment = () => {
     navigate("/payments");
   };
@@ -64,6 +66,26 @@ function Customer() {
             if (txnDetails != result.data) {
               setTxnDetails(result.data);
             }
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  };
+  const getBalance = async (e) => {
+    return await new Promise((resolve, reject) => {
+      axios
+        .get("http://localhost:5174/balance", {
+          params: { accNo: userDetails.accNo },
+        })
+        .then((result) => {
+          if (result.status === 200) {
+            setBalance(result.data);
             resolve(true);
           } else {
             resolve(false);
@@ -176,6 +198,7 @@ function Customer() {
                 <button
                   className="text-white text-lg w-[40%] py-2 rounded-lg bg-sky-600 hover:bg-sky-400 duration-300 ease-linear font-semibold"
                   onClick={() => {
+                    getBalance();
                     setshowBalance(true);
                   }}
                 >
@@ -185,13 +208,13 @@ function Customer() {
               {showBalance && (
                 <p
                   className={`text-3xl cursor-pointer ${
-                    userDetails.balance < 0 ? "text-red-600" : ""
+                    balance < 0 ? "text-red-600" : ""
                   }`}
                   onClick={() => {
                     setshowBalance(false);
                   }}
                 >
-                  ₹ {userDetails.balance}
+                  ₹ {balance}
                 </p>
               )}
             </div>
