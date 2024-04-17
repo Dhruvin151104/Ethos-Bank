@@ -7,11 +7,13 @@ import twit from "../assets/twitter.svg";
 import linkedin from "../assets/linkedin.svg";
 import github from "../assets/github.svg";
 import { Link } from "react-router-dom";
-import globe from "../assets/earth.svg"
+import globe from "../assets/earth.svg";
 
 function Footer() {
   const usefulLinks = ["Home", "Support", "Terms of Service", "Privacy Policy"];
+  const link1 = ["/","/contactus","/","/"]
   const Services = ["Accounts", "Payments", "Loans", "Calculators"];
+  const link2 = ["/customer","/payments","/loan","/calculator"]
   const media = (props) => {
     return (
       <div key={props.key} className=" h-7 w-7 cursor-pointer">
@@ -21,14 +23,18 @@ function Footer() {
   };
   const element = (props) => {
     return (
-      <p key={props.key} className=" cursor-pointer hover:text-sky-600 ease-in-out duration-200">
-        &gt; {props.text}
-      </p>
+      <Link to={props.link}>
+        <p
+          key={props.key}
+          className=" cursor-pointer hover:text-sky-600 ease-in-out duration-200"
+        >
+          &gt; {props.text}
+        </p>
+      </Link>
     );
   };
   return (
     <div className="  h-[50vh] flex justify-center items-center font-[Poppins] bg-slate-200 relative overflow-hidden mt-10">
-      
       <div className=" h-4/5 w-2/5 flex justify-center items-start flex-col pl-14 gap-8">
         <div className="h-14  flex items-center">
           <Link className="h-full" to="/">
@@ -37,14 +43,16 @@ function Footer() {
         </div>
         <div className=" text-md font-light flex flex-col gap-2">
           <p>
-          Experience seamless banking with Ethos Bank. Secure transactions, personalized services, and trusted solutions. Your financial goals are our priority.
+            Experience seamless banking with Ethos Bank. Secure transactions,
+            personalized services, and trusted solutions. Your financial goals
+            are our priority.
           </p>
           <div className="flex gap-4">
-            {media({ img: fb,key:"1"})}
-            {media({ img: insta,key:"2" })}
-            {media({ img: twit,key:"3" })}
-            {media({ img: linkedin ,key:"4"})}
-            {media({ img: github ,key:"5"})}
+            {media({ img: fb, key: "1" })}
+            {media({ img: insta, key: "2" })}
+            {media({ img: twit, key: "3" })}
+            {media({ img: linkedin, key: "4" })}
+            {media({ img: github, key: "5" })}
           </div>
         </div>
       </div>
@@ -56,7 +64,7 @@ function Footer() {
             </p>
           </div>
           <div className="flex flex-col justify-start items-start gap-1 font-normal text-lg h-[70%]">
-            {usefulLinks.map((e,index) => element({text:e,key:index}))}
+            {usefulLinks.map((e, index) => element({ text: e, key: index,link:link1[index] }))}
           </div>
         </div>
         <div className=" h-[90%] w-[25%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-[7]">
@@ -64,7 +72,7 @@ function Footer() {
             <p className=" text-2xl font-semibold text-[#154166]">Services</p>
           </div>
           <div className="flex flex-col justify-start items-start gap-1 font-normal text-lg h-[70%]">
-            {Services.map((e,index) => element({text:e,key:index}))}
+            {Services.map((e, index) => element({ text: e, key: index,link:link2[index] }))}
           </div>
         </div>
         <div className=" h-[90%] w-[35%]  items-start justify-center flex flex-col pl-4 gap-5 relative z-[7]">
@@ -73,7 +81,8 @@ function Footer() {
           </div>
           <div className=" w-full text-md flex flex-col justify-start gap-5 h-[70%]">
             <p>
-              Ethos Private Limited, 42 Financial Avenue, Prosperity Heights, Metro City, New York, 10001
+              Ethos Private Limited, 42 Financial Avenue, Prosperity Heights,
+              Metro City, New York, 10001
             </p>
             <div className="text-sm">
               <p>
@@ -86,7 +95,11 @@ function Footer() {
           </div>
         </div>
       </div>
-      <img src={globe} alt="" className="absolute right-2 top-4 h-[70vh] z-0 opacity-20" />
+      <img
+        src={globe}
+        alt=""
+        className="absolute right-2 top-4 h-[70vh] z-0 opacity-20"
+      />
     </div>
   );
 }
