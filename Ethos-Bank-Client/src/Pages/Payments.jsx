@@ -5,24 +5,30 @@ import { useNavigate } from "react-router-dom";
 import { FcMoneyTransfer } from "react-icons/fc";
 import axios from 'axios';
 import Alert from '../components/Alert';
+import Success from '../components/Success';
 
 function Payments() {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [])
   const [accNo, setaccNo] = useState("")
   const [IFSC, setIFSC] = useState("")
   const [amount, setamount] = useState("")
   const [showAlert, setshowAlert] = useState(false)
+  const [showSuccess, setshowSuccess] = useState(false)
   const alertMessage = useRef({title:"",message:""})
   const userDetails = JSON.parse(localStorage.getItem('userDetails'))
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!localStorage.getItem('userDetails')) {
+      navigate("/login")
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [])
 
   const makeTxn = async () => {
       await axios.post('http://localhost:5174/maketxn', {senderAC:userDetails.accNo, receiverAC:accNo, IFSC:IFSC, amount:amount})
       .then(result => {
         alertMessage.current={title:"Success",message:result.data}
-        setshowAlert(()=>true);
+        setshowSuccess(()=>true);
       })
       .catch((error)=>{
         console.log(error)
@@ -32,7 +38,8 @@ function Payments() {
   }
 
   return (
-    <div className='h-[100vh] w-full font-[Poppins] flex items-center justify-center px-20 relative'>
+    <div className='h-[100vh] w-full font-[Poppins] flex items-center justify-center px-20'>
+      <Success message={alertMessage.current.message} setshow={setshowSuccess} show={showSuccess}/>
       <Alert title={alertMessage.current.title} message={alertMessage.current.message} setshow={setshowAlert} show={showAlert}/>
       <FcMoneyTransfer className="z-0 text-[400px] absolute -right-[10rem] opacity-30 rotate-[15deg]"/>
       <div className='h-4/5 w-[35%]  flex justify-center items-center'>

@@ -1,8 +1,8 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiAlertCircle } from "react-icons/fi";
+import { MdOutlineDoneOutline } from "react-icons/md";
 
-function Alert(props) {
+function Success(props) {
   return (
     <AnimatePresence>
       {props.show && <motion.div
@@ -17,21 +17,20 @@ function Alert(props) {
             animate={{ scale: 1, rotate: "0deg" }}
             exit={{ scale: 0, rotate: "0deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-red-600 text-white p-6 rounded-lg  max-w-lg shadow-xl cursor-default relative overflow-hidden h-[40vh] w-[50%] flex justify-evenly items-center"
+            className="bg-gradient-to-r from-green-300 via-green-400 to-green-600 text-white p-6 rounded-lg  max-w-lg shadow-xl cursor-default relative overflow-hidden h-[40vh] w-[50%] flex justify-evenly items-center"
           >
-            <FiAlertCircle className="text-white/10 rotate-12 text-[250px] absolute z-0 -top-24 -left-24" />
-            <div className="relative z-10">
+            <MdOutlineDoneOutline className="text-white/10 rotate-12 text-[250px] absolute z-0 top-5 left-30" />
+            <div className="relative z-10 flex flex-col justify-evenly items-center gap-4">
               <div className="bg-white w-16  h-16 mb-2 rounded-full text-4xl text-sky-600 grid place-items-center mx-auto">
-                <FiAlertCircle />
+                <MdOutlineDoneOutline />
               </div>
               <div className="text-3xl  font-semibold flex justify-center items-center mb-2">
-                {props.title}
+                Success
               </div>
-              <div className="text-center mb-6 text-lg px-5">
+              <div className="text-center mb-6 text-xl font-medium px-5">
                 {props.message}
               </div>
               <div className="flex gap-10 justify-center items-center">
-                <button className="w-[10vw]  py-2 bg-white/40 text-xl font-semibold rounded-lg text-white shadow-inner hover:bg-black/20 duration-150 ease-in-out" onClick={()=>{props.setshow(false)}}>CANCEL</button>
                 <button className="w-[10vw]  py-2 bg-white/40 text-xl font-semibold rounded-lg text-white shadow-inner hover:bg-black/20 duration-150 ease-in-out" onClick={()=>{props.setshow(false)}}>OK!</button>
               </div>
             </div>
@@ -41,4 +40,4 @@ function Alert(props) {
   );
 }
 
-export default Alert;
+export default Success;

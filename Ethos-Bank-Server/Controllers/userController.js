@@ -1,8 +1,5 @@
 import userModel from "../models/users.js";
 import { tokenGenerator, verifyToken } from "../Tokens/generateToken.js";
-import employeeModel from "../models/employee.js";
-import txnModel from "../models/txnDetails.js";
-import cardModel from "../models/cards.js";
 import Mailer from "../Mailer/mailer.js";
 import expressAsyncHandler from "express-async-handler";
 import generateOTP from "../Mailer/OTPgen.js";
@@ -68,16 +65,25 @@ const confirmController = expressAsyncHandler(async (req, res) => {
 });
 
 const signupController = expressAsyncHandler(async (req, res) => {
-  const { accNo, name, email, phoneNo, IFSC, balance, gender } = req.body;
-  if (!accNo || !name || !email || !phoneNo || !IFSC || !balance || !gender) {
-    res.status(400).json("Provide all inputs");
+  const { name, email, gender } = req.body;
+  if (!name || !email || !gender) {
+    res.status(400).json("Invalid request");
+    return;
   }
   const checkDuplicate = await userModel.findOne({
-    $or: [{ email }, { accNo }, { IFSC }, { phoneNo }],
+    $or: [{ email }],
   });
   if (checkDuplicate) {
     res.status(400).json("Duplicate Record Found.");
+    return;
   }
+  let no = parseInt(0);
+  const userCnt = await userModel.countDocuments();
+  no += userCnt;
+  const accNo = `EB` + no.toString().padStart(7, "0");
+  const IFSC = "EB000";
+  const phoneNo = 999999999
+  const balance = parseInt(100000);
   const create = userModel.create({
     accNo,
     name,
@@ -87,7 +93,6 @@ const signupController = expressAsyncHandler(async (req, res) => {
     balance,
     gender,
   });
-
   if (create) {
     res.status(200).json("User Created");
   } else {
@@ -97,7 +102,7 @@ const signupController = expressAsyncHandler(async (req, res) => {
 
 const getBalance = expressAsyncHandler(async (req, res) => {
   try {
-    const accNo = req.query.accNo
+    const accNo = req.query.accNo;
     const user = await userModel.findOne({ accNo: accNo });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -106,6 +111,12 @@ const getBalance = expressAsyncHandler(async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
-})
+});
 
-export { loginController, otpController, confirmController, signupController, getBalance };
+export {
+  loginController,
+  otpController,
+  confirmController,
+  signupController,
+  getBalance,
+};

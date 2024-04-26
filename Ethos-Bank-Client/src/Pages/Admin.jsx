@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import sendMessageIMG from "../assets/send-message.png";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:5174");
+const socket = io.connect(import.meta.env.SERVER);
 
 function Admin() {
   const inputBox = useRef(null);
@@ -29,21 +29,21 @@ function Admin() {
   };
 
   const sendMessage = (data) => {
-    socket.emit("sendMessage", data);
+    // socket.emit("sendMessage", data);
     setMessages((prevMessages) => [...prevMessages, sentMessage(data)]);
     scrollToBottom();
   };
 
-  useEffect(() => {
-    socket.on("receiveMessage", (data) => {
-      setMessages((prevMessages) => [...prevMessages, recievedMessage(data)]);
-      scrollToBottom();
-    });
+  // useEffect(() => {
+  //   socket.on("receiveMessage", (data) => {
+  //     setMessages((prevMessages) => [...prevMessages, recievedMessage(data)]);
+  //     scrollToBottom();
+  //   });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [socket]);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [socket]);
 
   const scrollToBottom = () => {
     if (messageBoxRef.current) {

@@ -1,6 +1,5 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import test from "../assets/test1.jpg"
 import noIMG from "../assets/newsUnavailable.jpg"
 import Spinner from "./Spinner"
 

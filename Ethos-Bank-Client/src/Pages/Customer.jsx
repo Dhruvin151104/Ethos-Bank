@@ -8,12 +8,12 @@ import payments from "../assets/profilepayments.svg";
 import axios from "axios";
 
 function Customer() {
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     getTxnDetails();
   }, []);
-
+  
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const navigate = useNavigate();
   const [showBalance, setshowBalance] = useState(false);
   const [balance, setBalance] = useState('Loading..');

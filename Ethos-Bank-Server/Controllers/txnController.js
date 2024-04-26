@@ -1,6 +1,5 @@
 import userModel from "../models/users.js";
 import txnModel from "../models/txnDetails.js";
-import cardModel from "../models/cards.js";
 import expressAsyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 

@@ -1,23 +1,30 @@
 import React from "react";
 import Alert from "../components/Alert";
+import Success from "../components/Success";
 import loginIMG from "../assets/loginIMG.png";
 import otpIMG from "../assets/otp.png";
 import verifyIMG from "../assets/verify.png";
 import Inputsingle from "../components/Inputsingle";
+import Button from "../components/Button";
+import NewUser from "../components/NewUser";
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Login(props) {
   const navigate = useNavigate();
   const [index, setindex] = useState(1);
   const [email, setemail] = useState("");
-  const [showAlert, setshowAlert] = useState(false)
-  const alertMessage = useRef({title:"",message:""})
+  const [showAlert, setshowAlert] = useState(false);
+  const [showSuccess, setshowSuccess] = useState(false);
+  const alertMessage = useRef({ title: "", message: "" });
   const [otp, setotp] = useState({});
   const [isVerified, setisVerified] = useState(false);
   const [focusIndex, setfocusIndex] = useState(0);
+  const [showNewUser, setshowNewUser] = useState(false);
+  const [showHome, setshowHome] = useState(true);
   const inputRef = useRef({});
+  const msgSuccess = useRef("");
 
   const nextSlide = () => {
     const parent = document.getElementById("login");
@@ -56,7 +63,7 @@ function Login(props) {
         .then((result) => {
           console.log(result.data);
           if (result.status === 200) {
-            localStorage.setItem("userDetails", JSON.stringify(result.data));
+            localStorage.setItem("token", JSON.stringify(result.data));
             resolve(true);
           } else {
             resolve(false);
@@ -73,7 +80,11 @@ function Login(props) {
     let OTP = Object.values(otp).join("");
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login/otp", { otp: OTP,email:email,token:JSON.parse(localStorage.getItem('userDetails')).token})
+        .post("http://localhost:5174/login/otp", {
+          otp: OTP,
+          email: email,
+          token: JSON.parse(localStorage.getItem("token")).token,
+        })
         .then((result) => {
           console.log(result.data);
           if (result.status === 200) {
@@ -93,12 +104,14 @@ function Login(props) {
   const handleConfirmation = async () => {
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login/details", {token:JSON.parse(localStorage.getItem('userDetails')).token })
+        .post("http://localhost:5174/login/details", {
+          token: JSON.parse(localStorage.getItem("token")).token,
+        })
         .then((result) => {
           console.log(result.data);
           if (result.status === 200 && isVerified) {
             localStorage.setItem("userDetails", JSON.stringify(result.data));
-            props.setisLoggedIn(true)
+            props.setisLoggedIn(true);
             resolve(true);
           } else {
             resolve(false);
@@ -113,7 +126,33 @@ function Login(props) {
 
   return (
     <div className="h-[100vh] w-[100vw] bg-main-theme  font-[Poppins] justify-center items-center flex">
-      <Alert title={alertMessage.current.title} message={alertMessage.current.message} setshow={setshowAlert} show={showAlert}/>
+      <Success
+        message={msgSuccess.current}
+        setshow={setshowSuccess}
+        show={showSuccess}
+      />
+      {showHome && (
+        <div className="absolute top-3 right-3 rounded-lg flex gap-5 justify-center items-center overflow-hidden">
+          <Link to="/">
+            <Button name="Home" y="0.4rem" x="1.8rem" />
+          </Link>
+          <div onClick={() => setshowNewUser(true)}>
+            <Button name="New User" y="0.4rem" x="1.2rem" />
+          </div>
+        </div>
+      )}
+      <Alert
+        title={alertMessage.current.title}
+        message={alertMessage.current.message}
+        setshow={setshowAlert}
+        show={showAlert}
+      />
+      <NewUser
+        setshow={setshowNewUser}
+        show={showNewUser}
+        setshowSuccess={setshowSuccess}
+        msgSuccess={msgSuccess}
+      />
       <div className="h-[75%] w-[65%] bg-white rounded-xl shadow-2xl flex overflow-hidden">
         {/* Scroll Part */}
         <div className="h-full w-[20%] bg-gradient-to-r from-sky-500 to-blue-900 flex items-center justify-center gap-4">
@@ -197,10 +236,15 @@ function Login(props) {
                     onClick={() => {
                       handleSubmitEmail().then((success) => {
                         if (success) {
+                          setshowHome(() => false);
                           nextSlide();
                         } else {
-                          alertMessage.current={title:"Alert!",message:"No user exists with the entered email, Enter a valid email"}
-                          setshowAlert(()=>true);
+                          alertMessage.current = {
+                            title: "Alert!",
+                            message:
+                              "No user exists with the entered email, Enter a valid email or register as new user",
+                          };
+                          setshowAlert(() => true);
                         }
                       });
                       console.log(JSON.stringify({ email: email }));
@@ -249,7 +293,10 @@ function Login(props) {
                 <div className="flex w-full  h-[20%] items-center justify-evenly px-5">
                   <button
                     className="py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] bg-gray-200 hover:bg-blue-600 hover:text-white duration-200 ease-linear"
-                    onClick={prevSlide}
+                    onClick={() => {
+                      setshowHome(() => true);
+                      prevSlide();
+                    }}
                   >
                     BACK
                   </button>
@@ -266,8 +313,11 @@ function Login(props) {
                         if (success) {
                           nextSlide();
                         } else {
-                          alertMessage.current={title:"Alert!",message:"Invalid OTP"}
-                          setshowAlert(()=>true);
+                          alertMessage.current = {
+                            title: "Alert!",
+                            message: "Invalid OTP",
+                          };
+                          setshowAlert(() => true);
                         }
                       });
                       let OTP = Object.values(otp).join("");
@@ -308,16 +358,18 @@ function Login(props) {
                   <button
                     className="py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200 text-black hover:text-white hover:bg-blue-600"
                     onClick={() => {
-                      handleConfirmation().then((success)=>{
-                        if(success){
-
+                      handleConfirmation().then((success) => {
+                        if (success) {
                           navigate(-1);
+                        } else {
+                          alertMessage.current = {
+                            title: "OOPS!",
+                            message:
+                              "Some error occured . Please try again later.",
+                          };
+                          setshowAlert(() => true);
                         }
-                        else{
-                          alertMessage.current={title:"OOPS!",message:"Some error occured . Please try again later."}
-                          setshowAlert(()=>true);
-                        }
-                      })
+                      });
                     }}
                   >
                     CONFIRM

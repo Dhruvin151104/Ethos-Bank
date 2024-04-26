@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import logoIMG from "../assets/favicon.png";
 import profileM from "../assets/profileNavbarMan.png";
 import profileF from "../assets/profileNavbarWoman.png";
-import LoginButton from "./LoginButton";
+import LoginButton from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";

@@ -1,10 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import loanIMG from "../assets/loan.png";
-import LoginButton from "../components/LoginButton";
+import Button from "../components/Button";
 import Input from "../components/Input";
 import loanApplication from "../assets/loanApplication.png";
-import test_svg from "../assets/test_svg.svg";
 import loanCalc from "../assets/loanCalc.png";
+import Success from '../components/Success';
 import Circular_Progress from "../components/Circular_Progress";
 
 function Loan() {
@@ -19,6 +19,8 @@ function Loan() {
   const [email, setemail] = useState("");
   const [name, setname] = useState("");
   const [number, setnumber] = useState("");
+  const [showSuccess, setshowSuccess] = useState(false)
+  const message = useRef(null)
 
   const validEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,6 +51,7 @@ function Loan() {
 
   return (
     <div className="w-full min-h-[100vh] px-20 py-10 flex flex-col justify-center items-center gap-20 font-[Poppins]">
+      <Success message={message.current} setshow={setshowSuccess} show={showSuccess}/>
       {/* Apply Part */}
       <div className=" w-full h-[90vh] flex">
         <div className="h-full w-3/5 flex justify-center pl-2">
@@ -69,7 +72,7 @@ function Loan() {
                   setshowLoanApplication(true);
                 }}
               >
-                <LoginButton name="Apply Now" y="0.7rem" />
+                <Button name="Apply Now" y="0.7rem" />
               </div>
             </div>
           </div>
@@ -221,8 +224,9 @@ function Loan() {
                       phoneNumber: number,
                       email: email,
                     });
-                    alert("Application Submitted Successfully");
+                    message.current="Application Submitted Successfully";
                     setshowLoanApplication(false);
+                    setshowSuccess(()=>true)
                   }}
                 >
                   APPLY

@@ -25,13 +25,13 @@ server.listen(process.env.PORT, () => {
   console.log("Server Started");
 });
 
-const io = new Server(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
-});
+// const io = new Server(server, {
+//   cors: { origin: process.env.CLIENT, methods: ["GET", "POST"] },
+// });
 
-io.on('connection',(socket)=>{
-    socket.on("sendMessage",(data)=>{
-        console.log(data)
-        socket.broadcast.emit( "receiveMessage", data )
-    })
-})
+// io.on('connection',(socket)=>{
+//     socket.on("sendMessage",(data)=>{
+//         console.log(data)
+//         socket.broadcast.emit( "receiveMessage", data )
+//     })
+// })

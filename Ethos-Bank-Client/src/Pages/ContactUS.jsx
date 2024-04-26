@@ -6,8 +6,8 @@ import email from "../assets/emailSVG.svg";
 import sendMessageIMG from "../assets/send-message.png";
 import io from "socket.io-client";
 import chat from "../assets/chat.svg";
-import LoginButton from "../components/LoginButton";
-const socket = io.connect("http://localhost:5174");
+import Button from "../components/Button";
+const socket = io.connect(import.meta.env.SERVER);
 
 function ContactUS() {
   const inputBox = useRef();
@@ -36,17 +36,17 @@ function ContactUS() {
   };
 
   const sendMessage = (data) => {
-    socket.emit("sendMessage", data);
+    // socket.emit("sendMessage", data);
     setMessages((prevMessages) => [...prevMessages, sentMessage(data)]);
     scrollToBottom();
   };
 
-  useEffect(() => {
-    socket.on("receiveMessage", (data) => {
-      setMessages((prevMessages) => [...prevMessages, recievedMessage(data)]);
-      scrollToBottom();
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket.on("receiveMessage", (data) => {
+  //     setMessages((prevMessages) => [...prevMessages, recievedMessage(data)]);
+  //     scrollToBottom();
+  //   });
+  // }, [socket]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -115,7 +115,7 @@ function ContactUS() {
                   setstartChat(true);
                 }}
               >
-                <LoginButton name="Chat With Us" x="4rem" />
+                <Button name="Chat With Us" x="4rem" />
               </div>
             </div>
           )}
@@ -128,6 +128,11 @@ function ContactUS() {
                 ref={messageBoxRef}
                 className="h-[85%] w-full rounded-2xl bg-white outline-gray-300 outline outline-1 p-4 flex flex-col overflow-y-auto overflow-x-hidden gap-3"
               >
+                <div className="w-full h-[20%] flex justify-center items-center">
+                  <div className="w-[80%] h-[90%] bg-gray-200 rounded-xl flex justify-center items-center px-8 text-center">
+                    <p>Chats are disabled for now you can set chat feature on by cloning this <a href="/" target="_blank" className="text-sky-600 font-semibold">github repository</a></p>
+                  </div>
+                </div>
                 {messages.map((message, index) => (
                   <div key={index}>{message}</div>
                 ))}
@@ -137,7 +142,7 @@ function ContactUS() {
                   ref={inputBox}
                   type="text"
                   className="shadow-inner font-medium h-[70%] w-full text-lg pl-5 rounded-md remove-arrow placeholder:font-medium placeholder:text-lg outline-gray-300 outline outline-1 pr-20"
-                  placeholder="Enter your message"
+                  placeholder="Enter your message. Type END to end the conversation"
                 />
                 <div className="h-[70%] w-[10%] absolute right-0 rounded-e-md flex justify-center items-center">
                   <img
