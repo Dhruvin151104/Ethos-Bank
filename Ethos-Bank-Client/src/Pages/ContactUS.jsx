@@ -7,7 +7,7 @@ import sendMessageIMG from "../assets/send-message.png";
 import io from "socket.io-client";
 import chat from "../assets/chat.svg";
 import Button from "../components/Button";
-const socket = io.connect(import.meta.env.VITE_SERVER);
+// const socket = io.connect(import.meta.env.VITE_SERVER);
 
 function ContactUS() {
   const inputBox = useRef();

@@ -86,7 +86,8 @@ function News() {
       {news.isLoading && <Spinner />}
       {!news.isLoading && news.status === "error" && (
         <p className="text-3xl font-semibold text-gray-400">
-          No News is Available For Now!
+          {/* No News is Available For Now! */}
+          {import.meta.env.VITE_NEWS_API}
         </p>
       )}
       {!news.isLoading && news.status === "ok" && (

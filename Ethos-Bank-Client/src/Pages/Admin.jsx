@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import sendMessageIMG from "../assets/send-message.png";
 import io from "socket.io-client";
-const socket = io.connect(import.meta.env.VITE_SERVER);
+// const socket = io.connect(import.meta.env.VITE_SERVER);
 
 function Admin() {
   const inputBox = useRef(null);
