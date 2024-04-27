@@ -59,7 +59,7 @@ function Login(props) {
   const handleSubmitEmail = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login", { email: email })
+        .post(import.meta.env.SERVER + "/login", { email: email })
         .then((result) => {
           if (result.status === 200) {
             localStorage.setItem("token", JSON.stringify(result.data));
@@ -78,7 +78,7 @@ function Login(props) {
     let OTP = Object.values(otp).join("");
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login/otp", {
+        .post(import.meta.env.SERVER + "/login/otp", {
           otp: OTP,
           email: email,
           token: JSON.parse(localStorage.getItem("token")).token,
@@ -100,7 +100,7 @@ function Login(props) {
   const handleConfirmation = async () => {
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/login/details", {
+        .post(import.meta.env.SERVER + "/login/details", {
           token: JSON.parse(localStorage.getItem("token")).token,
         })
         .then((result) => {
