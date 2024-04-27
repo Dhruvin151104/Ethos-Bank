@@ -61,7 +61,6 @@ function Login(props) {
       axios
         .post("http://localhost:5174/login", { email: email })
         .then((result) => {
-          console.log(result.data);
           if (result.status === 200) {
             localStorage.setItem("token", JSON.stringify(result.data));
             resolve(true);
@@ -70,7 +69,6 @@ function Login(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
           resolve(false);
         });
     });
@@ -86,7 +84,6 @@ function Login(props) {
           token: JSON.parse(localStorage.getItem("token")).token,
         })
         .then((result) => {
-          console.log(result.data);
           if (result.status === 200) {
             setisVerified(true);
             resolve(true);
@@ -95,7 +92,6 @@ function Login(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
           resolve(false);
         });
     });
@@ -108,7 +104,6 @@ function Login(props) {
           token: JSON.parse(localStorage.getItem("token")).token,
         })
         .then((result) => {
-          console.log(result.data);
           if (result.status === 200 && isVerified) {
             localStorage.setItem("userDetails", JSON.stringify(result.data));
             props.setisLoggedIn(true);
@@ -118,7 +113,6 @@ function Login(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
@@ -247,7 +241,6 @@ function Login(props) {
                           setshowAlert(() => true);
                         }
                       });
-                      console.log(JSON.stringify({ email: email }));
                     }}
                   >
                     LOG IN
@@ -321,7 +314,6 @@ function Login(props) {
                         }
                       });
                       let OTP = Object.values(otp).join("");
-                      console.log(JSON.stringify({ otp: OTP }));
                     }}
                   >
                     VERIFY

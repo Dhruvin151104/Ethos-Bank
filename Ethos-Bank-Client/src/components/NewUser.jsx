@@ -11,7 +11,7 @@ function NewUser(props) {
   const [email, setEmail] = useState("");
   const gender = useRef(null);
   const message = useRef({ title: "", message: "" });
-  const [showAlert, setshowAlert] = useState(false)
+  const [showAlert, setshowAlert] = useState(false);
 
   const createUser = async (e) => {
     return await new Promise((resolve, reject) => {
@@ -23,21 +23,26 @@ function NewUser(props) {
         })
         .then((result) => {
           if (result.status === 200) {
-            props.msgSuccess.current = "User created successfully";
-            props.setshow(false)
-            props.setshowSuccess(() => true)
+            props.msgSuccess.current = (
+              <div>
+                User created successfully.
+                <br />
+                Login again with the same email.
+              </div>
+            );
+            props.setshow(false);
+            props.setshowSuccess(() => true);
             resolve(true);
           } else {
             message.current = {
-                title: "Alert!",
-                message: result.data,
-              };
-              setshowAlert(() => true);
+              title: "Alert!",
+              message: result.data,
+            };
+            setshowAlert(() => true);
             resolve(false);
           }
         })
         .catch((error) => {
-            console.log(error)
           message.current = {
             title: "Alert!",
             message: error.response.data,
@@ -92,7 +97,7 @@ function NewUser(props) {
                     type="text"
                     settext={setEmail}
                     text={email}
-                    placeholder="Enter a valid email on which otp will come"
+                    placeholder="Enter a valid email"
                     heading="Email"
                   />
                   <div className="w-full flex flex-col gap-2">

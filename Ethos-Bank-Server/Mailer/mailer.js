@@ -54,7 +54,6 @@ function Mailer(to, otp, name = "User") {
         try {
             await transporter.sendMail(mailOptions);
         } catch (error) {
-            console.log(error);
         }
     }
 

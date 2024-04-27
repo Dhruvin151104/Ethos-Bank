@@ -219,11 +219,6 @@ function Loan() {
                   }`}
                   disabled={!validDetails()}
                   onClick={() => {
-                    console.log({
-                      name: name,
-                      phoneNumber: number,
-                      email: email,
-                    });
                     message.current="Application Submitted Successfully";
                     setshowLoanApplication(false);
                     setshowSuccess(()=>true)

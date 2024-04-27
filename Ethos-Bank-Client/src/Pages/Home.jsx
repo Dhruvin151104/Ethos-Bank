@@ -10,6 +10,7 @@ function Home() {
   const element = (props) => {
     return (
       <div
+      key={props.key}
         style={{
           width: props.width,
           height: props.height,
@@ -46,7 +47,7 @@ function Home() {
       <div className=" h-[90vh] w-full flex justify-center items-center px-20">
         <div className=" h-3/5 w-[45%] flex bg-transparent justify-center items-start flex-col gap-20">
           <div className="text-black text-2xl font-medium pr-16">
-            <p><span className="font-semibold text-blue-600 text-4xl">Supercharge</span> <span className="text-4xl">with Ethos,</span><div className=" font-light text-base mt-3">where every transaction is infused with efficiency, integrity, and personalized service.  Elevate your expectations and embrace a new standard of banking excellence with Ethos by your side.</div></p>
+            <p><span className="font-semibold text-blue-600 text-4xl">Supercharge</span> <span className="text-4xl">with Ethos,</span> <br /><span className=" font-light text-base mt-3">where every transaction is infused with efficiency, integrity, and personalized service.  Elevate your expectations and embrace a new standard of banking excellence with Ethos by your side.</span></p>
           </div>
           <div>
             <p className=" text-black text-3xl font-medium mb-5">
@@ -78,6 +79,7 @@ function Home() {
             <div className="w-[90%] h-full grid grid-cols-2 grid-rows-2">
               <div className="h-full w-full flex items-center justify-center">
                 {element({
+                  key:1,
                   width: "90%",
                   height: "80%",
                   img: loan_svg,
@@ -90,6 +92,7 @@ function Home() {
               </div>
               <div className="h-full w-full flex items-center justify-center">
                 {element({
+                  key:2,
                   width: "90%",
                   height: "80%",
                   img: calc_svg,

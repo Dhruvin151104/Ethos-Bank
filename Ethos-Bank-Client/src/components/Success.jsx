@@ -17,7 +17,7 @@ function Success(props) {
             animate={{ scale: 1, rotate: "0deg" }}
             exit={{ scale: 0, rotate: "0deg" }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-gradient-to-r from-green-300 via-green-400 to-green-600 text-white p-6 rounded-lg  max-w-lg shadow-xl cursor-default relative overflow-hidden h-[40vh] w-[50%] flex justify-evenly items-center"
+            className="bg-gradient-to-r from-green-300 via-green-400 to-green-600 text-white p-6 rounded-lg  max-w-lg shadow-xl cursor-default relative overflow-hidden h-[50vh] w-[50%] flex justify-evenly items-center"
           >
             <MdOutlineDoneOutline className="text-white/10 rotate-12 text-[250px] absolute z-0 top-5 left-30" />
             <div className="relative z-10 flex flex-col justify-evenly items-center gap-4">

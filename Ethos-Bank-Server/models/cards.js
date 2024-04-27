@@ -11,7 +11,6 @@ const cardSchema = new mongoose.Schema({
 
 cardSchema.pre('save', async function (next) {
     if(!this.isModified){
-        console.log("hello")
         next();
     }
     const salt = await bcrypt.genSalt(10);

@@ -3,16 +3,16 @@ import { tokenGenerator, verifyToken } from "../Tokens/generateToken.js";
 import Mailer from "../Mailer/mailer.js";
 import expressAsyncHandler from "express-async-handler";
 import generateOTP from "../Mailer/OTPgen.js";
+import cardModel from "../models/cards.js";
 
 var OTP = null;
 const loginController = expressAsyncHandler((req, res) => {
   const { email } = req.body;
   userModel.findOne({ email: email }).then((user) => {
     if (user) {
-      OTP = generateOTP();
+      OTP = generateOTP(6);
       Mailer(email, OTP, user.name);
       res.status(200).json({ token: tokenGenerator(email) });
-      console.log(`Email sent to user ${user.email}`);
     } else {
       res.status(400).json("No User found in Database");
     }
@@ -29,7 +29,6 @@ const otpController = expressAsyncHandler((req, res) => {
 
   if (OTP === otp) {
     res.status(200).json("Otp verified successfully");
-    console.log(`Otp verified successfully of user ${email}`);
   } else {
     res.status(400).json("Invalid otp");
   }
@@ -80,7 +79,7 @@ const signupController = expressAsyncHandler(async (req, res) => {
   let no = parseInt(0);
   const userCnt = await userModel.countDocuments();
   no += userCnt;
-  const accNo = `EB` + no.toString().padStart(7, "0");
+  const accNo = `EB` + no.toString().padStart(12, "0");
   const IFSC = "EB000";
   const phoneNo = 999999999
   const balance = parseInt(100000);
@@ -91,10 +90,19 @@ const signupController = expressAsyncHandler(async (req, res) => {
     phoneNo,
     IFSC,
     balance,
-    gender,
+    gender, 
   });
   if (create) {
-    res.status(200).json("User Created");
+    const cvv = generateOTP(3)
+    const cardNo = generateOTP(16)
+    const pin = '1234'
+    const expDate = '08/50'
+    const createCard = await cardModel.create({ accNo, cardNo, pin, cvv, expDate })
+    if (createCard) {
+      res.status(200).json("User Created and Card Assigned");
+    } else {
+      res.status(400).json("Failed to create card for the user");
+    }
   } else {
     res.status(400).json("An Error Occured");
   }

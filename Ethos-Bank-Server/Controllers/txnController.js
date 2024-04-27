@@ -65,11 +65,6 @@ const makeTxn = expressAsyncHandler(async (req, res) => {
         status: status,
         timestamp: Date.now()
     });
-    if (txn) {
-        console.log(`${status == false ? "Unsuccessfull" : "Successfull"} Transaction of Rs. ${amount} from ${senderData.name} to ${receiverName}`);
-    } else {
-        console.log("An Error Occured");
-    }
 })
 
 const txnDetails = expressAsyncHandler(async (req, res) => {

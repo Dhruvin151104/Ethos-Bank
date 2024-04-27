@@ -41,14 +41,12 @@ function Customer() {
                 ? result.data
                 : { cardNo: "XXXXXXXXXXXXXXXX", expDate: "MM/YY", cvv: "XXX" }
             );
-            console.log(cardDetails);
             resolve(true);
           } else {
             resolve(false);
           }
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
@@ -62,7 +60,6 @@ function Customer() {
         })
         .then((result) => {
           if (result.status === 200) {
-            console.log(result.data)
             if (txnDetails != result.data) {
               setTxnDetails(result.data);
             }
@@ -72,7 +69,6 @@ function Customer() {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
@@ -92,7 +88,6 @@ function Customer() {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });

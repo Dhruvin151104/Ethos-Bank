@@ -25,13 +25,14 @@ server.listen(process.env.PORT, () => {
   console.log("Server Started");
 });
 
+
+// UNCOMMENT THIS TO ENABLE LIVE CHATS
 // const io = new Server(server, {
 //   cors: { origin: process.env.CLIENT, methods: ["GET", "POST"] },
 // });
 
 // io.on('connection',(socket)=>{
 //     socket.on("sendMessage",(data)=>{
-//         console.log(data)
 //         socket.broadcast.emit( "receiveMessage", data )
 //     })
 // })

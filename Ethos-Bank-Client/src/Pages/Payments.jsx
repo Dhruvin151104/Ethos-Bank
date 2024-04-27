@@ -31,7 +31,6 @@ function Payments() {
         setshowSuccess(()=>true);
       })
       .catch((error)=>{
-        console.log(error)
         alertMessage.current={title:"Alert!",message:error.response.data}
         setshowAlert(()=>true);
       })
@@ -50,14 +49,14 @@ function Payments() {
         type="text"
         settext={setaccNo}
         text={accNo}
-        placeholder="EB123XXXX"
+        placeholder="EB0000XXXXXXX"
         heading="Enter account number"
       />
       <Input
         type="text"
         settext={setIFSC}
         text={IFSC}
-        placeholder="1223"
+        placeholder="EB000 - Put this only"
         heading="Enter IFSC Code"
       />
       <Input

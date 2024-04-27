@@ -1,7 +1,7 @@
 import otpGenerator from "otp-generator";
 
-const generateOTP = () => {
-    const OTP = otpGenerator.generate(6, {
+const generateOTP = (len) => {
+    const OTP = otpGenerator.generate(parseInt(len), {
         upperCaseAlphabets: false,
         lowerCaseAlphabets: false,
         specialChars: false,

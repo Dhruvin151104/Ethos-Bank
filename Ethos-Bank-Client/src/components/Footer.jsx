@@ -23,9 +23,8 @@ function Footer() {
   };
   const element = (props) => {
     return (
-      <Link to={props.link}>
+      <Link to={props.link} key={props.key}>
         <p
-          key={props.key}
           className=" cursor-pointer hover:text-sky-600 ease-in-out duration-200"
         >
           &gt; {props.text}
