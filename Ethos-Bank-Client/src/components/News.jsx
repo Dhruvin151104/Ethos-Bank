@@ -2,6 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import noIMG from "../assets/newsUnavailable.jpg"
 import Spinner from "./Spinner"
+import axios from "axios"
 
 function News() {
   const [news, setnews] = useState({
@@ -49,10 +50,10 @@ function News() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_NEWS_API)
+        const response = await axios.get(import.meta.env.VITE_NEWS_API)
         console.log(response)
-        if (response.ok) {
-          const data = await response.json()
+        if (response.data.status=="ok") {
+          const data = response.data
           setnews({
             ...news,
             articles: data.articles,
