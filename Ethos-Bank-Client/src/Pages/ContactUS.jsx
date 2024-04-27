@@ -130,7 +130,7 @@ function ContactUS() {
               >
                 <div className="w-full h-[20%] flex justify-center items-center">
                   <div className="w-[80%] h-[90%] bg-gray-200 rounded-xl flex justify-center items-center px-8 text-center">
-                    <p>Chats are disabled for now you can set chat feature on by cloning this <a href="/" target="_blank" className="text-sky-600 font-semibold">github repository</a></p>
+                    <p>Chats are disabled for now you can set chat feature on by cloning this <a href="https://github.com/Dhruvin151104/Ethos-Bank" target="_blank" className="text-sky-600 font-semibold">github repository</a></p>
                   </div>
                 </div>
                 {messages.map((message, index) => (
