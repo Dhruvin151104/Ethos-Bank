@@ -52,6 +52,7 @@ function News() {
       try {
         const response = await axios.get(import.meta.env.VITE_NEWS_API)
         console.log(response)
+        console.log(import.meta.env.VITE_NEWS_API)
         if (response.data.status=="ok") {
           const data = response.data
           setnews({
