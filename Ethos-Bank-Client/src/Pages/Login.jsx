@@ -25,7 +25,7 @@ function Login(props) {
   const [showHome, setshowHome] = useState(true);
   const inputRef = useRef({});
   const msgSuccess = useRef("");
-
+  
   const nextSlide = () => {
     const parent = document.getElementById("login");
     const slider = document.getElementById("slider");
@@ -57,9 +57,10 @@ function Login(props) {
   };
 
   const handleSubmitEmail = async (e) => {
+    
     return await new Promise((resolve, reject) => {
       axios
-        .post(import.meta.env.SERVER + "/login", { email: email })
+        .post(import.meta.env.VITE_SERVER + "/login", { email: email })
         .then((result) => {
           if (result.status === 200) {
             localStorage.setItem("token", JSON.stringify(result.data));
@@ -78,7 +79,7 @@ function Login(props) {
     let OTP = Object.values(otp).join("");
     return await new Promise((resolve, reject) => {
       axios
-        .post(import.meta.env.SERVER + "/login/otp", {
+        .post(import.meta.env.VITE_SERVER + "/login/otp", {
           otp: OTP,
           email: email,
           token: JSON.parse(localStorage.getItem("token")).token,
@@ -100,7 +101,7 @@ function Login(props) {
   const handleConfirmation = async () => {
     return await new Promise((resolve, reject) => {
       axios
-        .post(import.meta.env.SERVER + "/login/details", {
+        .post(import.meta.env.VITE_SERVER + "/login/details", {
           token: JSON.parse(localStorage.getItem("token")).token,
         })
         .then((result) => {

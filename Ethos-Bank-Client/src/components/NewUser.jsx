@@ -16,7 +16,7 @@ function NewUser(props) {
   const createUser = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:5174/admin/createUser", {
+        .post(import.meta.env.VITE_SERVER + "/admin/createUser", {
           name: name,
           email: email,
           gender: gender.current.value,

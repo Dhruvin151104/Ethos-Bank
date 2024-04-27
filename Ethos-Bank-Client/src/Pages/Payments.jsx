@@ -25,7 +25,7 @@ function Payments() {
   }, [])
 
   const makeTxn = async () => {
-      await axios.post(import.meta.env.SERVER + '/maketxn', {senderAC:userDetails.accNo, receiverAC:accNo, IFSC:IFSC, amount:amount})
+      await axios.post(import.meta.env.VITE_SERVER + '/maketxn', {senderAC:userDetails.accNo, receiverAC:accNo, IFSC:IFSC, amount:amount})
       .then(result => {
         alertMessage.current={title:"Success",message:result.data}
         setshowSuccess(()=>true);

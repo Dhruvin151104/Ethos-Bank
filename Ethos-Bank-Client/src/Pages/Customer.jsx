@@ -31,7 +31,7 @@ function Customer() {
   const getCardDetails = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .get(import.meta.env.SERVER + "/customer/getCardDetails", {
+        .get(import.meta.env.VITE_SERVER + "/customer/getCardDetails", {
           params: { accNo: userDetails.accNo },
         })
         .then((result) => {
@@ -55,7 +55,7 @@ function Customer() {
   const getTxnDetails = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .get(import.meta.env.SERVER + "/txnDetails", {
+        .get(import.meta.env.VITE_SERVER + "/txnDetails", {
           params: { accNo: userDetails.accNo },
         })
         .then((result) => {
@@ -76,7 +76,7 @@ function Customer() {
   const getBalance = async (e) => {
     return await new Promise((resolve, reject) => {
       axios
-        .get(import.meta.env.SERVER + "/balance", {
+        .get(import.meta.env.VITE_SERVER + "/balance", {
           params: { accNo: userDetails.accNo },
         })
         .then((result) => {
