@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import Router from "./Routes/userRoutes.js";
 import { config } from "dotenv";
-import http from "http";
-import { Server } from "socket.io";
+// import http from "http";
+// import { Server } from "socket.io";
 
 config();
 const app = express();
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/", Router);
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 try {
   const database = await mongoose.connect(process.env.SERVER);
@@ -21,7 +21,7 @@ try {
   console.log("Database not connected", error);
 }
 
-server.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server Started");
 });
 
