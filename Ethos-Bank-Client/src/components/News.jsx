@@ -50,6 +50,7 @@ function News() {
     const fetchData = async () => {
       try {
         const response = await fetch(import.meta.env.VITE_NEWS_API)
+        console.log(response)
         if (response.ok) {
           const data = await response.json()
           setnews({
