@@ -50,11 +50,10 @@ function News() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_NEWS_API)
+        const response = await fetch(import.meta.env.VITE_NEWS_API)
         console.log(response)
-        console.log(import.meta.env.VITE_NEWS_API)
-        if (response.data.status=="ok") {
-          const data = response.data
+        if (response.ok) {
+          const data = await response.json()
           setnews({
             ...news,
             articles: data.articles,
@@ -65,6 +64,7 @@ function News() {
           setnews({ ...news, isLoading: false,status: "error" })
         }
       } catch (error) {
+        console.log(error)
         setnews({ ...news, isLoading: false,status: "error" }) 
       }
     }
