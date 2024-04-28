@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FcMoneyTransfer } from "react-icons/fc";
 import axios from "axios";
 import Alert from "../components/Alert";
+import Spinner from "../components/Spinner";
 import Success from "../components/Success";
 
 function Payments() {
@@ -15,6 +16,8 @@ function Payments() {
   const [showSuccess, setshowSuccess] = useState(false);
   const alertMessage = useRef({ title: "", message: "" });
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const [showSpinner, setshowSpinner] = useState(false);
+  const buttonDisable = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +36,8 @@ function Payments() {
   
 
   const makeTxn = async () => {
+    buttonDisable.current=true
+    setshowSpinner(true)
     await axios
       .post(import.meta.env.VITE_SERVER + "/maketxn", {
         senderAC: userDetails.accNo,
@@ -41,10 +46,14 @@ function Payments() {
         amount: amount,
       })
       .then((result) => {
+        setshowSpinner(false)
+        buttonDisable.current=false
         alertMessage.current = { title: "Success", message: result.data };
         setshowSuccess(() => true);
       })
       .catch((error) => {
+        setshowSpinner(false)
+        buttonDisable.current=false
         alertMessage.current = {
           title: "Alert!",
           message: error.response.data,
@@ -110,16 +119,17 @@ function Payments() {
 
           <button
             className={`py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200/70 ${
-              detailsFilled()
+              (detailsFilled() && !buttonDisable.current)
                 ? "text-black hover:text-white hover:bg-blue-600"
                 : "text-slate-500 cursor-not-allowed "
             }`}
-            disabled={detailsFilled()}
+            disabled={!detailsFilled() && buttonDisable.current}
             onClick={makeTxn}
           >
             MAKE PAYMENT
           </button>
         </div>
+        {showSpinner && <Spinner />}
       </div>
     </div>
   );
