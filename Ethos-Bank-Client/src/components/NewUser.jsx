@@ -149,7 +149,7 @@ function NewUser(props) {
                   ADD
                 </button>
               </div>
-              <div className="w-full flex justify-center">
+              <div className="w-[46%] flex justify-end">
                 {showSpinner && <Spinner />}
               </div>
             </div>
