@@ -29,15 +29,14 @@ function Payments() {
 
   useEffect(() => {
     const value = parseFloat(amount);
-    const min = parseFloat(0)
+    const min = parseFloat(0);
 
-    if (value < min) setamount(min)
-  }, [amount])
-  
+    if (value < min) setamount(min);
+  }, [amount]);
 
   const makeTxn = async () => {
-    buttonDisable.current=true
-    setshowSpinner(true)
+    buttonDisable.current = true;
+    setshowSpinner(true);
     await axios
       .post(import.meta.env.VITE_SERVER + "/maketxn", {
         senderAC: userDetails.accNo,
@@ -46,14 +45,14 @@ function Payments() {
         amount: amount,
       })
       .then((result) => {
-        setshowSpinner(false)
-        buttonDisable.current=false
+        setshowSpinner(false);
+        buttonDisable.current = false;
         alertMessage.current = { title: "Success", message: result.data };
         setshowSuccess(() => true);
       })
       .catch((error) => {
-        setshowSpinner(false)
-        buttonDisable.current=false
+        setshowSpinner(false);
+        buttonDisable.current = false;
         alertMessage.current = {
           title: "Alert!",
           message: error.response.data,
@@ -62,10 +61,10 @@ function Payments() {
       });
   };
 
-  const detailsFilled = ()=>{
-    if(accNo && IFSC && amount) return true
-    return false
-  }
+  const detailsFilled = () => {
+    if (accNo && IFSC && amount) return true;
+    return false;
+  };
 
   return (
     <div className="h-[100vh] w-full font-[Poppins] flex items-center justify-center px-20">
@@ -119,7 +118,7 @@ function Payments() {
 
           <button
             className={`py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200/70 ${
-              (detailsFilled() && !buttonDisable.current)
+              detailsFilled() && !buttonDisable.current
                 ? "text-black hover:text-white hover:bg-blue-600"
                 : "text-slate-500 cursor-not-allowed "
             }`}
@@ -129,7 +128,9 @@ function Payments() {
             MAKE PAYMENT
           </button>
         </div>
-        {showSpinner && <Spinner />}
+        <div className="w-full flex justify-center">
+          {showSpinner && <Spinner />}
+        </div>
       </div>
     </div>
   );
