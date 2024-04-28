@@ -6,18 +6,20 @@ import viewDetails from "../assets/viewDetaiils.svg";
 import changePIN from "../assets/profilePIN.svg";
 import payments from "../assets/profilepayments.svg";
 import axios from "axios";
+import Alert from "../components/Alert";
 
 function Customer() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     getTxnDetails();
   }, []);
-  
+
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const navigate = useNavigate();
   const [showBalance, setshowBalance] = useState(false);
-  const [balance, setBalance] = useState('Loading..');
+  const [balance, setBalance] = useState("Loading..");
   const [txnDetails, setTxnDetails] = useState([]);
+  const [showAlert, setshowAlert] = useState(false);
   const [cardDetails, setcardDetails] = useState({
     cardNo: "XXXXXXXXXXXXXXXX",
     expDate: "MM/YY",
@@ -26,6 +28,10 @@ function Customer() {
 
   const navigateToPayment = () => {
     navigate("/payments");
+  };
+
+  const changePin = () => {
+    setshowAlert(true);
   };
 
   const getCardDetails = async (e) => {
@@ -157,6 +163,12 @@ function Customer() {
 
   return (
     <div className="h-max px-20 w-full bg-main-theme flex flex-col justify-center gap-20 items-center py-10 font-[Poppins]">
+      <Alert
+        title="Alert!"
+        message="This feature is not available for now"
+        setshow={setshowAlert}
+        show={showAlert}
+      />
       {/* Profile */}
       <div className="h-[50vh] w-full bg-white shadow-md flex justify-evenly items-center rounded-2xl">
         <div className="h-[80%] w-1/2 bg-slate-100 flex pl-10 font-semibold text-lg rounded-2xl">
@@ -261,7 +273,7 @@ function Customer() {
               img: viewDetails,
               onClick: getCardDetails,
             })}
-            {buttons({ txt: "Change PIN", img: changePIN })}
+            {buttons({ txt: "Change PIN", img: changePIN, onClick: changePIN })}
             {buttons({
               txt: "Payments",
               img: payments,
@@ -306,9 +318,11 @@ function Customer() {
                   {record({
                     height: "15%",
                     first: `${
-                      status ? rac == userDetails.accNo
-                      ? `Received from ${from}.`
-                      : `Sent to ${to}.` : 'Transaction Failed'
+                      status
+                        ? rac == userDetails.accNo
+                          ? `Received from ${from}.`
+                          : `Sent to ${to}.`
+                        : "Transaction Failed"
                     }`,
                     second: `${status ? "Successful" : "Failed"}`,
                     third: `Rs. ${amt}`,

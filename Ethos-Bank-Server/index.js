@@ -10,7 +10,12 @@ config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT,
+  optionsSuccessStatus: 200, 
+};
+
+app.use(cors(corsOptions));
 app.use("/", Router);
 // const server = http.createServer(app);
 
