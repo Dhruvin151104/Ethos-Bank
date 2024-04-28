@@ -6,9 +6,9 @@ import mongoose from "mongoose";
 const makeTxn = expressAsyncHandler(async (req, res) => {
     const { senderAC, receiverAC, amount, IFSC } = req.body;
     var status = true;
-    if (!senderAC || !receiverAC || !amount || !IFSC) {
+    if(senderAC==receiverAC){
         status = false;
-        res.status(400).json("Invalid transaction");
+        res.status(400).json("Receiver and Sender can't be same");
     }
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -71,19 +71,20 @@ const txnDetails = expressAsyncHandler(async (req, res) => {
     try {
         const accNo = req.query.accNo;
 
-        const sentTxns = await txnModel.find({ senderAccNo: accNo });
+        const Txns = await txnModel.find({
+            $or: [
+              { senderAccNo: accNo }, 
+              { receiverAccNo:accNo }, 
+            ],
+          });
 
-        const receivedTxns = await txnModel.find({ receiverAccNo: accNo });
 
-        const allTxns = [...sentTxns, ...receivedTxns];
-
-        if (allTxns.length === 0) {
+        if (Txns.length === 0) {
             return res.status(404).json({ message: "No transactions found for the specified account number." });
         }
 
-        res.status(200).json(allTxns);
+        res.status(200).json(Txns);
     } catch (err) {
-        console.error("Error fetching transaction details:", err);
         res.status(500).json({ message: "Internal server error" });
     }
 });
