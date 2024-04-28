@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Input from "./Input";
 import logo from "../assets/favicon.png";
 import Alert from "../components/Alert";
+import Spinner from "./Spinner";
 
 import axios from "axios";
 
@@ -12,9 +13,13 @@ function NewUser(props) {
   const gender = useRef(null);
   const message = useRef({ title: "", message: "" });
   const [showAlert, setshowAlert] = useState(false);
+  const [showSpinner, setshowSpinner] = useState(false);
+  const buttonDisable = useRef(false);
 
   const createUser = async (e) => {
     return await new Promise((resolve, reject) => {
+      buttonDisable.current = true;
+      setshowSpinner(true);
       axios
         .post(import.meta.env.VITE_SERVER + "/admin/createUser", {
           name: name,
@@ -22,6 +27,8 @@ function NewUser(props) {
           gender: gender.current.value,
         })
         .then((result) => {
+          buttonDisable.current = false;
+          setshowSpinner(false);
           if (result.status === 200) {
             props.msgSuccess.current = (
               <div>
@@ -43,12 +50,14 @@ function NewUser(props) {
           }
         })
         .catch((error) => {
+          buttonDisable.current = false;
+          setshowSpinner(false);
           message.current = {
             title: "Alert!",
             message: error.response.data,
           };
           setshowAlert(() => true);
-          resolve(false)
+          resolve(false);
         });
     });
   };
@@ -128,15 +137,20 @@ function NewUser(props) {
                 </button>
                 <button
                   className={`py-4 rounded-lg shadow-inner text-lg font-semibold w-[40%] duration-200 ease-linear bg-gray-200 ${
-                    validEmail() && name !== ""
+                    validEmail() && name !== "" && !buttonDisable.current
                       ? "text-black hover:text-white hover:bg-blue-600"
                       : "text-slate-500 cursor-not-allowed "
                   }`}
-                  disabled={!validEmail() || name === ""}
+                  disabled={
+                    !validEmail() || name === "" || buttonDisable.current
+                  }
                   onClick={createUser}
                 >
                   ADD
                 </button>
+              </div>
+              <div className="w-full flex justify-center">
+                {showSpinner && <Spinner />}
               </div>
             </div>
           </motion.div>

@@ -326,7 +326,7 @@ function Customer() {
                     }`,
                     second: `${status ? "Successful" : "Failed"}`,
                     third: `Rs. ${amt}`,
-                    fourth: `${index}`,
+                    fourth: `${index+1}`,
                     fifth: `Rs. ${amt}`,
                     border: 1,
                   })}

@@ -122,13 +122,13 @@ function Payments() {
                 ? "text-black hover:text-white hover:bg-blue-600"
                 : "text-slate-500 cursor-not-allowed "
             }`}
-            disabled={!detailsFilled() && buttonDisable.current}
+            disabled={!detailsFilled() || buttonDisable.current}
             onClick={makeTxn}
           >
             MAKE PAYMENT
           </button>
         </div>
-        <div className="w-full flex justify-center">
+        <div className="w-[80%] flex justify-center">
           {showSpinner && <Spinner />}
         </div>
       </div>
