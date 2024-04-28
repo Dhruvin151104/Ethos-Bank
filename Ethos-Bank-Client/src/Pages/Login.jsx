@@ -116,7 +116,7 @@ function Login(props) {
           }
         })
         .catch((err) => {
-          reject(err);
+          resolve(false)
         });
     });
   };

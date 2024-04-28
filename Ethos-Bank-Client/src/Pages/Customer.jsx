@@ -53,7 +53,7 @@ function Customer() {
           }
         })
         .catch((err) => {
-          reject(err);
+          resolve(false);
         });
     });
   };
@@ -75,7 +75,7 @@ function Customer() {
           }
         })
         .catch((err) => {
-          reject(err);
+          resolve(false)
         });
     });
   };
@@ -94,7 +94,7 @@ function Customer() {
           }
         })
         .catch((err) => {
-          reject(err);
+          resolve(false)
         });
     });
   };
@@ -273,7 +273,7 @@ function Customer() {
               img: viewDetails,
               onClick: getCardDetails,
             })}
-            {buttons({ txt: "Change PIN", img: changePIN, onClick: changePIN })}
+            {buttons({ txt: "Change PIN", img: changePIN, onClick: changePin })}
             {buttons({
               txt: "Payments",
               img: payments,

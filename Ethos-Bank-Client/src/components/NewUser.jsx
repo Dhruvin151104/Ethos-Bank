@@ -48,6 +48,7 @@ function NewUser(props) {
             message: error.response.data,
           };
           setshowAlert(() => true);
+          resolve(false)
         });
     });
   };
