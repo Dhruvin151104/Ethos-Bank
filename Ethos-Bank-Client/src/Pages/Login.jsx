@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import NewUser from "../components/NewUser";
 import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 import axios from "axios";
 
 function Login(props) {
@@ -23,9 +24,11 @@ function Login(props) {
   const [focusIndex, setfocusIndex] = useState(0);
   const [showNewUser, setshowNewUser] = useState(false);
   const [showHome, setshowHome] = useState(true);
+  const [showSpinner, setshowSpinner] = useState(false);
   const inputRef = useRef({});
+  const buttonDisable = useRef(false);
   const msgSuccess = useRef("");
-  
+
   const nextSlide = () => {
     const parent = document.getElementById("login");
     const slider = document.getElementById("slider");
@@ -57,7 +60,6 @@ function Login(props) {
   };
 
   const handleSubmitEmail = async (e) => {
-    
     return await new Promise((resolve, reject) => {
       axios
         .post(import.meta.env.VITE_SERVER + "/login", { email: email })
@@ -223,13 +225,17 @@ function Login(props) {
                   <button
                     type="submit"
                     className={`py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200 ${
-                      validEmail()
+                      validEmail() && !buttonDisable.current
                         ? "text-black hover:text-white hover:bg-blue-600"
                         : "text-slate-500 cursor-not-allowed "
                     }`}
-                    disabled={!validEmail()}
+                    disabled={!validEmail() || buttonDisable.current}
                     onClick={() => {
+                      buttonDisable.current = true;
+                      setshowSpinner(true);
                       handleSubmitEmail().then((success) => {
+                        buttonDisable.current = false;
+                        setshowSpinner(false);
                         if (success) {
                           setshowHome(() => false);
                           nextSlide();
@@ -247,6 +253,7 @@ function Login(props) {
                     LOG IN
                   </button>
                 </div>
+                {showSpinner && <Spinner />}
               </div>
             </div>
           </div>
@@ -297,13 +304,17 @@ function Login(props) {
                   <button
                     type="submit"
                     className={`py-4 rounded-lg shadow-inner text-lg font-semibold w-[38%] duration-200 ease-linear bg-gray-200 ${
-                      isValidOtp()
+                      isValidOtp() && !buttonDisable.current
                         ? "text-black hover:text-white hover:bg-blue-600"
                         : "text-slate-500 cursor-not-allowed "
                     }`}
-                    disabled={!isValidOtp()}
+                    disabled={!isValidOtp() || buttonDisable.current}
                     onClick={() => {
+                      buttonDisable.current = true;
+                      setshowSpinner(true);
                       handleSubmitOtp().then((success) => {
+                        buttonDisable.current = false;
+                        setshowSpinner(false);
                         if (success) {
                           nextSlide();
                         } else {
@@ -314,12 +325,12 @@ function Login(props) {
                           setshowAlert(() => true);
                         }
                       });
-                      let OTP = Object.values(otp).join("");
                     }}
                   >
                     VERIFY
                   </button>
                 </div>
+                {showSpinner && <Spinner />}
               </div>
             </div>
           </div>
